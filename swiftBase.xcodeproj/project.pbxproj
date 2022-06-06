@@ -7,8 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F514F3AD284D10020058D476 /* BaseSatatypesAndLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F514F3AC284D10020058D476 /* BaseSatatypesAndLiterals.swift */; };
 		F5B549B5284B486A0007051D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B549B4284B486A0007051D /* main.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		F514F3AB284C92750058D476 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = sourcecode.yacc;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# $(YACC)\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		F5B549AF284B486A0007051D /* CopyFiles */ = {
@@ -23,8 +38,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F514F3AC284D10020058D476 /* BaseSatatypesAndLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSatatypesAndLiterals.swift; sourceTree = "<group>"; };
 		F5B549B1284B486A0007051D /* swiftBase */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swiftBase; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5B549B4284B486A0007051D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		F5B549B4284B486A0007051D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				F5B549B4284B486A0007051D /* main.swift */,
+				F514F3AC284D10020058D476 /* BaseSatatypesAndLiterals.swift */,
 			);
 			path = swiftBase;
 			sourceTree = "<group>";
@@ -74,6 +91,7 @@
 				F5B549AF284B486A0007051D /* CopyFiles */,
 			);
 			buildRules = (
+				F514F3AB284C92750058D476 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -121,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5B549B5284B486A0007051D /* main.swift in Sources */,
+				F514F3AD284D10020058D476 /* BaseSatatypesAndLiterals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
