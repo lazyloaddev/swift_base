@@ -1,109 +1,116 @@
 /*
-let a: Int // let %имя константы%: %тип константы%
-let b: Double
-let c: Float
-let d: String
-let e: Character
-let f: Bool
+ 4 + 3    // корректное выражение, равно 7
+ 4+4      // корректное выражение, равно 7
+ 4 +      // не корректное выражение, приведет к ошибке сборки
+ + 3      // не корректное выражение, ошибка сборки
+ 4 +4     // не корректно
+ 4+ 4     // не корректно
+ */
+/*
+ +4        // корректное выражение равно 4
+ -4        // корректное выражение равно -4
+ 4 + -4    // корректное выражение равно 0
+ + 4       // не корректное выражение
+ - 4       // не корректное выражение
+ */
+/*
+ 4 +
+ 4
+ + 3
+ +
+ 5
+ // все эти 5 строк корректное выражение которое равно 4 + 4 + 3 + 5 = 16
+ */
+/*
+ 2 + 2   // 4
+ 2 - 2   // 0
+ 2 * 2   // 4
+ 2 / 2   // 1
+ 2 % 2   // 0
+ */
+/*
+ let weight = 10
+ let height = 12
+ let square = weight * height // (10 * 12) = 120
+ */
+/*
+ var age = 25     // 25
+ age = age + 1    // 26
+ */
+/*
+ var age = 25      // 25
+ age += 1          // 26
+ age -= 10         // 16
+ age *= 2          // 32
+ age /= 4          // 8
+ age %= 3          // 2
+ */
+/*
+2.0 + 3.0
+2 - 3.0
+4.0 * 5
+4 / 3.0
 */
 
 /*
- let user: Int      // хороше имя
- let b: Int         // плохое имя
- let 1user: Int     // некоректное имя, приложение не скомпилиируется
- let User: Int      // плохое имя
- let myuser: Int    // плохое имя, слова сливаются
- let my_user: Int   // плохое имя, в iOS разрабоке обычно не используют нижнее подчеркивание для разделения слов
- let myUser: Int    // хороше имя
+4 / 2
+4 / 3
+4 / 4
+4 / 5
+10 / 6
+ */
+/*
+ 4 > 2   // true
+ 4 < 2   // false
+ 4 >= 2  // true
+ 4 <= 2  // false
+ 4 > 4   // false
+ 4 >= 4  // true
+ 4 < 4   // false
+ 4 <= 4  // true
+ 4 == 4  // true
+ 4 != 4  // false
+ 4 == 2  // false
+ 4 != 2  // false
+ */
+/*
+ "a" == "a"              // true
+ "привет" == "привет"    // true
+ "привет" == "Привет"    // false
+ "a" != "a"              // false
+ "привет" != "Привет"    // true
+ "a" > "a"               // false
+ "a" > "A"               // true
+ "b" > "a"               // true
+ "b" > "ab"              // true
+ */
+/*
+ true && true    // true
+ true && false   // false
+ false && true   // false
+ false && false  // false
+ */
+/*
+ true || true    // true
+ true || false   // true
+ false || true   // true
+ false || false  // false
+ */
+/*
+ let result = 45 + 18 * 6 / 3 - 4
  */
 
 /*
- let user: Int
- print(user)
+ let age = 28
+ let name = "иван"
+ let isGoodCandidat = age >= 25 && name == "петр" || name == "иван"
+ print(isGoodCandidat)   // true
  */
-
 /*
- let user: Int
- user = 7
- print(user)
- */
-
-/*
- let a = 1
- a = 2
- */
-
-/*
- let a: Int = 1
- let b: Double = 2.3
- let c: Float = 3.14
- let d: String = "Привет мир!"
- let e: Character = "d"
- let f: Bool = true
- */
-
-/*
- let a: Int = 1
- let b: Double = 1
- let c: Float = 1
- let d: String = 1
- let e: Character = 1
- let f: Bool = 1
- let x: Int = 1.0
- let v: Int = "привет"
- */
-
-/*
- let a: Int = m
- let a: Int = m
- let b: Double = m
- let c: Float = m
- let d: String = m
- let e: Character = m
- let f: Bool = m
- */
-
-/*
- let a = 1               // Int
- let b = 2.3             // Double
- let c: Float = 3.14     // Float
- let d = "Привет мир!"   // String
- let e: Character = "d"  // Character
- let f = true            // Bool
- */
-
-
-/*
- let a0 = 1
- let a = a0               // Int
- let b0 = 2.3
- let b = b0              // Double
- let c0: Float = 3.14
- let c = c0              // Float
- let d0 = "Привет мир!"
- let d = d0              // String
- let e0: Character = "d"
- let e = e0              // Character
- let f0 = true
- let f = f0              // Bool
- */
-
-/*
- var a: Int // var %имя переменной%: %тип переменной%
- a = 1
- var b: Double = 2.4
- var c: Float = 3.14
- var d = "Привет мир"
- var e: Character = "e"
- var f = true
- */
-
-/*
- let a = 1
- a = 2
- 
- var b = 1
- b = 2
- b = a
- b = 3
+ let age = 28
+ let name = "иван"
+ let isAdult = age >= 25
+ let hasRightName = name == "петр" || name == "иван"
+ let isGoodCandidat = isAdult || hasRightName
+ print(isGoodCandidat)   // true
  */
