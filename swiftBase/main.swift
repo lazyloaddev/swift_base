@@ -1,125 +1,121 @@
-let nameFromuserInput = readLine()
+let a: Any = 1
 
-if let nameFromuserInput = nameFromuserInput {
-    print(nameFromuserInput)
-} else {
-    print("При извдечении имени пользователя обнаружилось nill")
-}
-
+let b = a is Int        // true
+let c = a is Double     // false
+let d = a is String     // false
 
 /*
-let a: Int = 1
-let b: Int? = 1
-let c: Int? = nil
- 
+let a: Any = 1
+let b: Int = 2
 
-print(a + (b ?? 0))
-print(a + (c ?? 0))
+let c = a as! Int
+let d = a as? Int
+let e = b as Any
+*/
+/*
+let a: Any = 1
+let b: Any = 2
+
+(a as! Int) + (b as! Int) // 3
  */
-
+/*
+let a: Any = 1
+let b: Any = "привет"
+var storage: Any = 1
+storage = true
+storage = "привет"
+print(storage)
+ */
 /*
 let a: Int = 1
-let b: Int! = 1
-let c: Int! = nil
-
-print(a + b)
-print(a + c)
+let b: String = "привет"
 */
 /*
-let a: Int = 1
-let b: Int? = 1
-let c: Int? = nil
+let a = "true"
+let b = "false"
+let c = "YES"
 
-print(a + b!)
-print(a + c!)
+let boolA = Bool(a) // Optional(true)
+let boolB = Bool(b) // Optional(false)
+let boolC = Bool(c) // nil
 */
 /*
-let a: Int = 1
-let b: Int? = 1
-let c: Int? = nil
+let a = 1
+let b = 2.4
+let c = "34"
+let d = true
+let e = Character("П")
+let f: Float = 3.14
 
-if
-    let b = b,
-    let c = c
-{
-    print(b + c)
-} else {
-    print("В b или c нет значения")
-}
+let stringC = Character(c)
 */
 /*
-let a: Int = 1
-let b: Int? = 1
-let c: Int? = nil
+let a = 1
+let b = 2.4
+let c = "34"
+let d = true
+let e = Character("П")
+let f: Float = 3.14
 
-if let b = b {
-    // b не опциональная
-    print(a + b)
-} else {
-    print("В b нет значения")
-}
-// b опциональная
+let floatA = Float(a)   // 1.0
+let floatB = Float(b)   // 2.4
+let floatC = Float(c)   // Optional(34.0)
 */
-
 /*
-let a: Int = 1
-let b: Int? = 1
-let c: Int? = nil
+let a = 1
+let b = 2.4
+let c = "34"
+let d = true
+let e = Character("П")
+let f: Float = 3.14
 
-if let usualB = b {
-    print(a + usualB)
-} else {
-    print("В b нет значения")
-}
-
-if let usualC = c {
-    print(a + usualC)
-} else {
-    print("В c нет значения")
-}
+let stringA = String(a)   // "1"
+let stringB = String(b)   // "2.3"
+let stringD = String(d)   // "true"
+let stringE = String(e)   // "П"
+let stringF = String(f)   // "3.14"
 */
 
 /*
-// 1
-let a: Int? = 1
-let b: Int? = 5
-let c: Int = a
+let a = "34"
+let b = "34.5"
+let c = "Привет"
 
-// 2
-
-let result1 = a + a
-let result2 = a + c
-
-// 3
-
-print(a)
-*/
-
+let doubleA = Double(a) // Optional(34.0)
+let doubleB = Double(b) // Optional(34.5)
+let doubleC = Double(c) // nil
+print(doubleA, doubleB, doubleC)
+ */
 /*
-// 1
-let a: Int = 1
-let b: Int? = 1
+let a = 1
+let b = 2.4
+let c = "34"
+let d = true
+let e = Character("П")
+let f: Float = 3.14
 
-// 2
-var c: Int? = 1
-c = 2
-c = nil
-c = 5
-c = 1
-
-// 3
-
-c = a
-let d: Int? = a
-
-// 4
-
-print(a == b)
-print(b == c)
+let doubleA = Double(a)   // 1.0
+let doubleC = Double(c)   // Optional(34.0)
+let doubleF = Double(f)   // 3.140000104904175
 */
-
 /*
-let a: Int? = nil
-let b: String? = nil
-let c: Double? = nil
+let a = "34"
+let b = "34.5"
+let c = "Привет"
+
+let intA = Int(a) // Optional(34)
+let intB = Int(b) // nil
+let intC = Int(c) // nil
+*/
+/*
+let a = 1
+let b = 2.4
+let c = "34"
+let d = true
+let e = Character("П")
+let f: Float = 3.14
+
+let intB = Int(b)   // 2
+let intC = Int(c)   // Optional(34)
+let intF = Int(f)   // 3
 */
