@@ -1,62 +1,41 @@
-/*
-func sum(_ a: Int, _ b: Int) -> Int {
-    let a = 32
-    let result = a + b
-    return result
+func getDataFromUser(description: String) -> String {
+    print(description)
+    return readLine() ?? ""
 }
- */
-/*
-var c = 1
-if c == 1 {
-    c += 1
-    print(c)
+
+func showResult(_ result: Int) {
+    print("Результат: " + String(result))
+}
+
+print("Добро пожаловать в программу калькулятор.")
+
+let operation = getDataFromUser(description: "Выберете операцию: +, -, * или /")
+let firstNumber = getDataFromUser(description: "Введите целое число:")
+let secondNumber = getDataFromUser(description: "Введите второе число:")
+
+print("Идет вычисление примера: " + firstNumber + " " + operation + " " + secondNumber)
+
+if let firstNumber = Int(firstNumber) {
+    if let secondNumber = Int(secondNumber) {
+        calculate(operation: operation, firstNumber: firstNumber, secondNumber: secondNumber)
+    } else {
+        print("Вы ввели не верное второе число")
+    }
 } else {
-    c += 1
-    print(c)
+    print("Вы ввели не верное первое число")
 }
 
-func sum(_ a: Int, _ b: Int) -> Int {
-    var c = 1
-    c += 1
-    let result = a + b + c
-    return result
+func calculate(operation: String, firstNumber first: Int, secondNumber second: Int) {
+    switch operation {
+    case "+": showResult(first + second)
+    case "-": showResult(first - second)
+    case "*": showResult(first * second)
+    case "/":
+        if second != 0 {
+            showResult(first / second)
+        } else {
+            print("Деление на 0 является недопустимой операцией")
+        }
+    default: print("Вы ввели не верную операцию.")
+    }
 }
-
-print(sum(1, 2))
-print(sum(1, 2))
-print(sum(1, 2))
-print(sum(1, 2))
- */
-/* В консоле мы увидим
- 2
- 5
- 5
- 5
- 5
- Program ended with exit code: 0
- */
-/*
- let a = 5
- let b = 4
- let result = a + b
-
- if a == b {
-     print("а == b")
- } else {
-     print("а != b")
- }
-
-
- func sum(_ a: Int, _ b: Int) -> String {
-     let result = a + b
-     if result == 2 {
-         return "Двойка"
-     } else {
-         return "Не двойка"
-     }
- }
-
- let sumResult = sum(a, b)
- print(sumResult)
-
- */
