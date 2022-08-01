@@ -1,3 +1,4 @@
+import Darwin
 func getDataFromUser(description: String) -> String {
     print(description)
     return readLine() ?? ""
@@ -8,34 +9,55 @@ func showResult(_ result: Int) {
 }
 
 print("Добро пожаловать в программу калькулятор.")
-
-let operation = getDataFromUser(description: "Выберете операцию: +, -, * или /")
-let firstNumber = getDataFromUser(description: "Введите целое число:")
-let secondNumber = getDataFromUser(description: "Введите второе число:")
-
-print("Идет вычисление примера: " + firstNumber + " " + operation + " " + secondNumber)
-
-if let firstNumber = Int(firstNumber) {
-    if let secondNumber = Int(secondNumber) {
-        calculate(operation: operation, firstNumber: firstNumber, secondNumber: secondNumber)
-    } else {
-        print("Вы ввели не верное второе число")
+var history: [String] = []
+while true {
+    let operation = getDataFromUser(description: "Выберете операцию: +, -, * или /. Для завершения работы введите q. Для просмотра истории введите h.")
+    if operation == "q" {
+        exit(0)
+    } else if operation == "h" {
+        for example in history {
+            print(example)
+        }
+        continue
     }
-} else {
-    print("Вы ввели не верное первое число")
+    let firstNumber = getDataFromUser(description: "Введите целое число:")
+    let secondNumber = getDataFromUser(description: "Введите второе число:")
+    
+    let example = firstNumber + " " + operation + " " + secondNumber
+    print("Идет вычисление примера: " + example)
+    
+    if let firstNumber = Int(firstNumber) {
+        if let secondNumber = Int(secondNumber) {
+            let result = calculate(operation: operation, firstNumber: firstNumber, secondNumber: secondNumber)
+            if let result = result {
+                showResult(result)
+                history.append(example + " = " + String(result))
+            }
+        } else {
+            print("Вы ввели не верное второе число")
+        }
+    } else {
+        print("Вы ввели не верное первое число")
+    }
+    print("")
+    print("---------------------------------------------------------")
+    print("")
 }
 
-func calculate(operation: String, firstNumber first: Int, secondNumber second: Int) {
+func calculate(operation: String, firstNumber first: Int, secondNumber second: Int) -> Int? {
     switch operation {
-    case "+": showResult(first + second)
-    case "-": showResult(first - second)
-    case "*": showResult(first * second)
+    case "+": return first + second
+    case "-": return first - second
+    case "*": return first * second
     case "/":
         if second != 0 {
-            showResult(first / second)
+            return first / second
         } else {
             print("Деление на 0 является недопустимой операцией")
+            return nil
         }
-    default: print("Вы ввели не верную операцию.")
+    default:
+        print("Вы ввели не верную операцию.")
+        return nil
     }
 }
