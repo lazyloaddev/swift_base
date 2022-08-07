@@ -1,84 +1,121 @@
-import Darwin
+let person = (name: "Иван", age: 28)
+let (name, age) = person
+print(name, age)
 
-print("Добро пожаловать в программу калькулятор.")
-var history: [String] = []
-while true {
-    let action = getDataFromUser(description: "Что вы хотите сделать: c - расчет примера. q - завершение работы. h - просмотр истории.")
-    switch action {
-    case "c":
-        calculate()
-    case "q":
-        exit(0)
-    case "h":
-        showHistory()
-    default:
-        print("недопустимое действие")
-    }
-    print("")
-    print("---------------------------------------------------------")
-    print("")
-}
+/*
+ let name = "Иван"
+ let age = 28
+ let person = (name: name, age: age)
+ print(person.name, person.age)
+ */
 
-func showHistory() {
-    for example in history {
-        print(example)
-    }
-}
+/*
+ var person = (name: "Иван", age: 28)
+ print(person.name)
+ person.name = "Николай"
+ print(person.name)
+ */
 
-func calculate() {
-    let operation = getDataFromUser(description: "Выберете операцию: +, -, * или /")
-    guard operation == "+" || operation == "-" || operation == "*" || operation == "/" else {
-        print("Вы ввели не верную операцию.")
-        return
-    }
-    
-    let firstNumber = getDataFromUser(description: "Введите целое число:")
-    guard let firstNumber = Int(firstNumber) else {
-        print("Вы ввели не верное число")
-        return
-    }
-    
-    let secondNumber = getDataFromUser(description: "Введите второе число:")
-    guard let secondNumber = Int(secondNumber) else {
-        print("Вы ввели не верное число")
-        return
-    }
-    
-    let example = String(firstNumber) + " " + operation + " " + String(secondNumber)
-    print("Идет вычисление примера: " + example)
-    
-    let result = calculate(operation: operation, firstNumber: firstNumber, secondNumber: secondNumber)
-    guard let result = result else { return }
-
-    showResult(result)
-    history.append(example + " = " + String(result))
-}
+/*
+let person: (String, Int) = (name: "Иван", age: 28)
+let person2: (name: String, age: Int) = ("Иван", 28)
+print(person.name)
+print(person2.name)
+*/
+/*
+ let person: (String, Int) = (name: "Иван", age: 28)
+ let person2: (name: String, age: Int) = (name: "Иван", age: 28)
+ let person3: (name: String, age: Int) = ("Иван", 28)
+ */
+/*
+ let person = (100, 200, 300, 400, name: "Иван", 500)
+ print(person.name)
+ print(person.0, person.1, person.2, person.3, person.4, person.5)
+ */
 
 
-func calculate(operation: String, firstNumber first: Int, secondNumber second: Int) -> Int? {
-    switch operation {
-    case "+":
-        return first + second
-    case "-":
-        return first - second
-    case "*":
-        return first * second
-    case "/" where second == 0:
-        print("Деление на 0 является недопустимой операцией")
-        return nil
-    case "/":
-        return first / second
-    default:
-        print("Вы ввели не верную операцию.")
-        return nil
-    }
-}
+/*
+ let person = (age: 18, height: 180, name: "Иван", surname: "Иванов")
+ print(person.name, person.surname, person.age, person.height)
+ print(person.0, person.1, person.2, person.3)
+ */
 
-func getDataFromUser(description: String) -> String {
-    print(description)
-    return readLine() ?? ""
-}
+/*
+ let person = (name: "Иван", surname: "Иванов", age: 18, height: 180)
+ print(person.name, person.surname, person.age, person.height)
+ print(person.0, person.1, person.2, person.3)
+ */
+/*
+ let a = (1, "привет", "пока", 18)
+ print(a.0)
+ print(a.1)
+ print(a.2)
+ print(a.3)
+ print(a.4)
+ */
 
-func showResult(_ result: Int) {
-    print("Результат: " + String(result))
-}
+/*
+ let a: (String, Int) = (1, "привет")
+ let b: (Int) = (1, "привет")
+ let c: (Int, String, Int) = (1, "привет")
+*/
+
+/*
+ let a: (Int, String) = (1, "привет")
+ */
+
+/*
+ let a = (1, "привет")
+ */
+
+/*
+ let person = (
+     height: 180,
+     age: 25,
+     surname: "Иванов",
+     name: "Иван",
+     salary: [50001, 47002, 53003, 51004, 52005, 55006, 59007, 56008, 58009, 57010, 50011, 50012],
+     children: ["Егор", "Екатерина", "Василиса"]
+ )
+
+ print("Полное имя: " + person.surname + " " + person.name)
+ */
+
+/*
+ let person: [Any] = [
+     180,
+     25,
+     "Иванов",
+     "Иван",
+     [50001, 47002, 53003, 51004, 52005, 55006, 59007, 56008, 58009, 57010, 50011, 50012],
+     ["Егор", "Екатерина", "Василиса"]
+ ]
+
+ if let name = person[1] as? String, let surname = person[2] as? String {
+     print("Полное имя: " + name + " " + surname)
+ }
+ */
+
+/*
+ let person: [Any] = [
+     25,
+     "Иванов",
+     "Иван",
+     [50001, 47002, 53003, 51004, 52005, 55006, 59007, 56008, 58009, 57010, 50011, 50012],
+     ["Егор", "Екатерина", "Василиса"]
+ ]
+
+ if let name = person[1] as? String, let surname = person[2] as? String {
+     print("Полное имя: " + name + " " + surname)
+ }
+ */
+
+/*
+ let person: Any = [
+     25,
+     "Иванов",
+     "Иван"
+     [50001, 47002, 53003, 51004, 52005, 55006, 59007, 56008, 58009, 57010, 50011, 50012],
+     ["Егор", "Екатерина", "Василиса"]
+ ]
+ */
