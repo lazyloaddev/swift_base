@@ -1,186 +1,165 @@
-let a = [
-    "Иван": 120,
-    "Иван": 121,
-    "Иван": 122,
-    "Петр": 120,
-    "Петр": 121,
-    "Петр": 122,
-]
-print(a)
-/*
- let a = [
-     0: "привет",
-     1: "пока",
-     100: "hello",
-     -100: "by",
- ]
+let a: Set = [1, 2, 3, 4, 5, 6, 7]
+let b: Set = [4, 5, 6, 7, 8, 9, 10]
 
- print(a)
- */
+let intersectionResult = a.intersection(b)
+print(intersectionResult)
+let symmetricDifferenceResult = a.symmetricDifference(b)
+print(symmetricDifferenceResult)
+let unionResult = a.union(b)
+print(unionResult)
+let subtractingResult = a.subtracting(b)
+print(subtractingResult)
+
+
 
 /*
- let a = [
-     0: "привет",
-     1: "пока",
- ]
+ var a: Set = ["Иван", "Петр", "Юлия", "Екатерина"]
 
- print(a[0])
- print(a[1])
- */
-/*
- let playersHeight = [
-     "Петр": 202,
-     "Иван": 210,
-     "Николай": 190,
-     "Семен": 215,
-     "Максим": 200,
- ]
-
- for player in playersHeight {
-     print(player.key, player.value)
+ for element in a {
+     print(element)
  }
  */
-/*
- var a = ["a": 1, "b": 2]
- a.removeAll()
- */
 
 /*
- var a = ["a": 1, "b": 2]
- a["a"] = 23
- a["b"] = nil
- a["x"] = 98
+ var a: Set = ["Иван", "Петр",]
+ a.remove("Иван")
  print(a)
  */
+
 /*
-var a = ["a": 1, "b": 2]
-a = ["c": 3, "d": 4]
-a = [:]
- */
-/*
- let playersHeight = [
-     "Петр": 202,
-     "Иван": 210,
-     "Николай": 190,
-     "Семен": 215,
-     "Максим": 200,
- ]
- print(playersHeight["Кузьма"])
- print(playersHeight["Иван"])
- */
-/*
- let playersHeight: [String: Int] = [
-     "Петр": 202,
-     "Иван": 210,
-     "Николай": 190,
-     "Семен": 215,
-     "Максим": 200,
- ]
- print(playersHeight)
- */
-/*
- let a: [String: String]?
- */
-/*
- let a: [String: String] = [:]
- let b = [String: String]()
- */
-/*
-let playersHeight = ["Петр": 202, "Иван": 210]
- */
-/*
- let playersHeight: [String: Int] = [
-     "Петр": 202,
-     "Иван": 210,
- ]
- */
-/*
-let playersHeight: [String: Int] = [
-    "Петр": 202,
-    "Иван": 210,
-    "Николай": 190,
-    "Семен": 215,
-    "Максим": 200,
-]
- */
-/*
- let playersHeight: Dictionary<Any, Any> = [
-     "Петр": 202,
-     "Иван": "Привет",
- ]
+ var a: Set = ["Иван", "Петр"]
+ let r1 = a.contains("Иван")
+ let r2 = a.contains("Кузьма")
+ print(r1, r2)
  */
 
 /*
- let playersHeight: Dictionary<String, Any> = [
-     "Петр": 202,
-     "Иван": "Привет",
- ]
+ var a: Set = ["Иван", "Петр"]
+ a = ["Кузьма", "Екатерина"]
  */
 
 /*
- let playersHeight: Dictionary<String, Int> = [
-     "Петр": 202,
-     "Иван": 210,
-     "Николай": 190,
-     "Семен": 215,
-     "Максим": 200,
- ]
+ var a: Set = ["Иван", "Иван", "Иван", "Иван", "Иван", "Петр", "Юлия", "Екатерина"]
+ a.insert("Кузьма")
+ a.insert("Кузьма")
+ a.insert("Кузьма")
+ a.insert("Кузьма")
+ a.insert("Кузьма")
+ print(a)
+
+ */
+/*
+ let a: Set = ["Иван", "Петр", "Юлия", "Екатерина"]
+ print(a)
  */
 
 /*
- let playersHeight = [
-     "Петр": 202,
-     "Иван": 210,
-     "Николай": 190,
-     "Семен": 215,
-     "Максим": 200,
- ]
-
- print(playersHeight["Петр"] ?? 0)
+ let a: Set = ["Иван", "Петр", "Юлия", "Екатерина"]
+ let b: Set<String> = []
+ let c: Set<String>?
  */
 
 /*
- let playersHeight: [(name: String, height: Int)] = [
-     (name: "Петр", height: 202),
-     (name: "Иван", height: 210),
-     (name: "Николай", height: 190),
-     (name: "Семен", height: 215),
-     (name: "Максим", height: 200),
+ let a: Set = Set(["Иван", "Петр", "Юлия", "Екатерина"])
+ */
+
+/*
+ // Все сотрудники hr отдела
+ let hrUnit: Set = ["Иван", "Петр", "Юлия", "Екатерина"]
+ // Сотрудники которые были в офисе в первый день (вчера)
+ let inOffiseDayOne: Set = ["Иван", "Петр", "Юлия", "Степан"]
+ // Сотрудники которые в офисе во второй день (сегодня)
+ var inOffiseCurrentDay: Set = ["Иван", "Петр", "Екатерина", "Клавдия"]
+
+ let isIvanInOffice = inOffiseCurrentDay.contains("Иван")
+ print(isIvanInOffice)
+ let isInvanWasRegistered = inOffiseCurrentDay.insert("Иван")
+ let isKuzmaWasRegistered = inOffiseCurrentDay.insert("Кузьма")
+ print(isInvanWasRegistered.inserted, isKuzmaWasRegistered.inserted)
+ print(inOffiseCurrentDay)
+
+ let hrInOffice = hrUnit.intersection(inOffiseCurrentDay)
+ print(hrInOffice)
+
+ let hrNotInOffise = hrUnit.subtracting(inOffiseCurrentDay)
+ print(hrNotInOffise)
+
+ let allPersonsWereInOffcie = inOffiseDayOne.union(inOffiseCurrentDay)
+ print(allPersonsWereInOffcie)
+
+ let personsWereInOfficeOnlyOneDay = inOffiseDayOne.symmetricDifference(inOffiseCurrentDay)
+ print(personsWereInOfficeOnlyOneDay)
+ */
+
+
+
+/*
+ // Все сотрудники hr отдела
+ let hrUnit = [
+     "Иван": "Иван",
+     "Петр": "Петр",
+     "Юлия": "Юлия",
+     "Екатерина": "Екатерина"
+ ]
+ // Сотрудники которые были в офисе в первый день (вчера)
+ let inOffiseDayOne = [
+     "Иван": "Иван",
+     "Петр": "Петр",
+     "Юлия": "Юлия",
+     "Степан": "Степан"
+ ]
+ // Сотрудники которые в офисе во второй день (сегодня)
+ var inOffiseCurrentDay = [
+     "Иван": "Иван",
+     "Петр": "Петр",
+     "Екатерина": "Екатерина",
+     "Клавдия": "Клавдия"
  ]
 
- for player in playersHeight {
-     if player.name == "Иван" {
-         print(player.height)
-         break
+ if inOffiseCurrentDay["Иван"] != nil {
+     print("Иван в офисе")
+ }
+
+ if inOffiseCurrentDay["Кузьма"] == nil {
+     inOffiseCurrentDay["Кузьма"] = "Кузьма"
+ }
+
+ var hrInOffice = [String: String]()
+ for hr in hrUnit {
+     if inOffiseDayOne[hr.key] != nil {
+         hrInOffice[hr.key] = hr.value
      }
  }
  */
-/*
- let playersHeight: [(name: String, height: Int)] = [
-     (name: "Петр", height: 202),
-     (name: "Иван", height: 210),
-     (name: "Николай", height: 190),
-     (name: "Семен", height: 215),
-     (name: "Максим", height: 200),
- ]
 
- print(playersHeight[1].height)
- */
+
 
 /*
- let playersHeight: [(name: String, height: Int)] = [
-     (name: "Петр", height: 202),
-     (name: "Иван", height: 210),
-     (name: "Николай", height: 190),
-     (name: "Семен", height: 215),
-     (name: "Максим", height: 200),
- ]
+ // Все сотрудники hr отдела
+ let hrUnit = ["Иван", "Петр", "Юлия", "Екатерина"]
+ // Сотрудники которые были в офисе в первый день (вчера)
+ let inOffiseDayOne = ["Иван", "Петр", "Юлия", "Степан"]
+ // Сотрудники которые в офисе во второй день (сегодня)
+ var inOffiseCurrentDay = ["Иван", "Петр", "Екатерина", "Клавдия"]
 
- for player in playersHeight {
-     print("Рост игрок " + player.name + " равен " + String(player.height))
+ for person in inOffiseCurrentDay {
+     if person == "Иван" {
+         print("Иван в офисе")
+         break
+     }
  }
- */
 
-/*
- let playersHeight = [202, 210, 190, 215, 200]
+ var isKuzmaInOffice = false
+ for person in inOffiseCurrentDay {
+     if person == "Кузьма" {
+         isKuzmaInOffice = true
+         break
+     }
+ }
+
+ if !isKuzmaInOffice {
+     inOffiseCurrentDay.append("Кузьма")
+ }
+
+
  */
