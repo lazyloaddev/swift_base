@@ -4,12 +4,13 @@ print("Добро пожаловать в программу калькулят�
 var history: [String] = []
 while true {
     let action = getDataFromUser(description: "Что вы хотите сделать: c - расчет примера. q - завершение работы. h - просмотр истории.")
+    print("1", action)
     switch action {
-    case "с":
+    case "c":
         showHistory()
     case "q":
         exit(0)
-    case "h ":
+    case "h":
         calculate()
     default:
         print("недопустимое действие")
