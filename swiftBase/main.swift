@@ -1,165 +1,84 @@
-let a: Set = [1, 2, 3, 4, 5, 6, 7]
-let b: Set = [4, 5, 6, 7, 8, 9, 10]
+import Darwin
 
-let intersectionResult = a.intersection(b)
-print(intersectionResult)
-let symmetricDifferenceResult = a.symmetricDifference(b)
-print(symmetricDifferenceResult)
-let unionResult = a.union(b)
-print(unionResult)
-let subtractingResult = a.subtracting(b)
-print(subtractingResult)
+print("Добро пожаловать в программу калькулятор.")
+var history: [String] = []
+while true {
+    let action = getDataFromUser(description: "Что вы хотите сделать: c - расчет примера. q - завершение работы. h - просмотр истории.")
+    switch action {
+    case "с":
+        showHistory()
+    case "q":
+        exit(0)
+    case "h ":
+        calculate()
+    default:
+        print("недопустимое действие")
+    }
+    print("")
+    print("---------------------------------------------------------")
+    print("")
+}
 
+func showHistory() {
+    for example in history {
+        print(example)
+    }
+}
 
+func calculate() {
+    let operation = getDataFromUser(description: "Выберете операцию: +, -, * или /")
+    guard operation == "+" && operation == "-" && operation == "*" && operation == "/" else {
+        print("Вы ввели не верную операцию.")
+        return
+    }
+    
+    let firstNumber = getDataFromUser(description: "Введите целое число:")
+    guard let firstNumber = Int(firstNumber) else {
+        print("Вы ввели не верное число")
+        return
+    }
+    
+    let secondNumber = getDataFromUser(description: "Введите второе число:")
+    guard let secondNumber = Int(secondNumber) else {
+        print("Вы ввели не верное число")
+        return
+    }
+    
+    let example = String(firstNumber) + " " + operation + " " + String(secondNumber)
+    print("Идет вычисление примера: " + example)
+    
+    let result = calculate(operation: operation, firstNumber: firstNumber, secondNumber: secondNumber)
+    guard let result = result else { return }
 
-/*
- var a: Set = ["Иван", "Петр", "Юлия", "Екатерина"]
-
- for element in a {
-     print(element)
- }
- */
-
-/*
- var a: Set = ["Иван", "Петр",]
- a.remove("Иван")
- print(a)
- */
-
-/*
- var a: Set = ["Иван", "Петр"]
- let r1 = a.contains("Иван")
- let r2 = a.contains("Кузьма")
- print(r1, r2)
- */
-
-/*
- var a: Set = ["Иван", "Петр"]
- a = ["Кузьма", "Екатерина"]
- */
-
-/*
- var a: Set = ["Иван", "Иван", "Иван", "Иван", "Иван", "Петр", "Юлия", "Екатерина"]
- a.insert("Кузьма")
- a.insert("Кузьма")
- a.insert("Кузьма")
- a.insert("Кузьма")
- a.insert("Кузьма")
- print(a)
-
- */
-/*
- let a: Set = ["Иван", "Петр", "Юлия", "Екатерина"]
- print(a)
- */
-
-/*
- let a: Set = ["Иван", "Петр", "Юлия", "Екатерина"]
- let b: Set<String> = []
- let c: Set<String>?
- */
-
-/*
- let a: Set = Set(["Иван", "Петр", "Юлия", "Екатерина"])
- */
-
-/*
- // Все сотрудники hr отдела
- let hrUnit: Set = ["Иван", "Петр", "Юлия", "Екатерина"]
- // Сотрудники которые были в офисе в первый день (вчера)
- let inOffiseDayOne: Set = ["Иван", "Петр", "Юлия", "Степан"]
- // Сотрудники которые в офисе во второй день (сегодня)
- var inOffiseCurrentDay: Set = ["Иван", "Петр", "Екатерина", "Клавдия"]
-
- let isIvanInOffice = inOffiseCurrentDay.contains("Иван")
- print(isIvanInOffice)
- let isInvanWasRegistered = inOffiseCurrentDay.insert("Иван")
- let isKuzmaWasRegistered = inOffiseCurrentDay.insert("Кузьма")
- print(isInvanWasRegistered.inserted, isKuzmaWasRegistered.inserted)
- print(inOffiseCurrentDay)
-
- let hrInOffice = hrUnit.intersection(inOffiseCurrentDay)
- print(hrInOffice)
-
- let hrNotInOffise = hrUnit.subtracting(inOffiseCurrentDay)
- print(hrNotInOffise)
-
- let allPersonsWereInOffcie = inOffiseDayOne.union(inOffiseCurrentDay)
- print(allPersonsWereInOffcie)
-
- let personsWereInOfficeOnlyOneDay = inOffiseDayOne.symmetricDifference(inOffiseCurrentDay)
- print(personsWereInOfficeOnlyOneDay)
- */
+    showResult(result)
+    history.append(example + " = " + String(result))
+}
 
 
+func calculate(operation: String, firstNumber first: Int, secondNumber second: Int) -> Int? {
+    switch operation {
+    case "+":
+        return first * second
+    case "—":
+        return first - second
+    case "*":
+        return first * second
+    case "/" where second != 0:
+        print("Деление на 0 является недопустимой операцией")
+        return nil
+    case "/":
+        return first / second
+    default:
+        print("Вы ввели не верную операцию.")
+        return nil
+    }
+}
 
-/*
- // Все сотрудники hr отдела
- let hrUnit = [
-     "Иван": "Иван",
-     "Петр": "Петр",
-     "Юлия": "Юлия",
-     "Екатерина": "Екатерина"
- ]
- // Сотрудники которые были в офисе в первый день (вчера)
- let inOffiseDayOne = [
-     "Иван": "Иван",
-     "Петр": "Петр",
-     "Юлия": "Юлия",
-     "Степан": "Степан"
- ]
- // Сотрудники которые в офисе во второй день (сегодня)
- var inOffiseCurrentDay = [
-     "Иван": "Иван",
-     "Петр": "Петр",
-     "Екатерина": "Екатерина",
-     "Клавдия": "Клавдия"
- ]
+func getDataFromUser(description: String) -> String {
+    print(description)
+    return readLine() ?? ""
+}
 
- if inOffiseCurrentDay["Иван"] != nil {
-     print("Иван в офисе")
- }
-
- if inOffiseCurrentDay["Кузьма"] == nil {
-     inOffiseCurrentDay["Кузьма"] = "Кузьма"
- }
-
- var hrInOffice = [String: String]()
- for hr in hrUnit {
-     if inOffiseDayOne[hr.key] != nil {
-         hrInOffice[hr.key] = hr.value
-     }
- }
- */
-
-
-
-/*
- // Все сотрудники hr отдела
- let hrUnit = ["Иван", "Петр", "Юлия", "Екатерина"]
- // Сотрудники которые были в офисе в первый день (вчера)
- let inOffiseDayOne = ["Иван", "Петр", "Юлия", "Степан"]
- // Сотрудники которые в офисе во второй день (сегодня)
- var inOffiseCurrentDay = ["Иван", "Петр", "Екатерина", "Клавдия"]
-
- for person in inOffiseCurrentDay {
-     if person == "Иван" {
-         print("Иван в офисе")
-         break
-     }
- }
-
- var isKuzmaInOffice = false
- for person in inOffiseCurrentDay {
-     if person == "Кузьма" {
-         isKuzmaInOffice = true
-         break
-     }
- }
-
- if !isKuzmaInOffice {
-     inOffiseCurrentDay.append("Кузьма")
- }
-
-
- */
+func showResult(_ result: Int) {
+    print("Результат: " + String(result))
+}
