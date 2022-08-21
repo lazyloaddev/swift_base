@@ -1,85 +1,63 @@
-import Darwin
-
-print("Добро пожаловать в программу калькулятор.")
-var history: [String] = []
-while true {
-    let action = getDataFromUser(description: "Что вы хотите сделать: c - расчет примера. q - завершение работы. h - просмотр истории.")
-    print("1", action)
-    switch action {
-    case "c":
-        showHistory()
-    case "q":
-        exit(0)
-    case "h":
-        calculate()
-    default:
-        print("недопустимое действие")
-    }
-    print("")
-    print("---------------------------------------------------------")
-    print("")
+func sum(_ a: Int, _ b: Int) -> Int {
+    return a + b
 }
 
-func showHistory() {
-    for example in history {
-        print(example)
-    }
+func minus(_ a: Int, _ b: Int) -> Int {
+    a - b
 }
 
-func calculate() {
-    let operation = getDataFromUser(description: "Выберете операцию: +, -, * или /")
-    guard operation == "+" && operation == "-" && operation == "*" && operation == "/" else {
-        print("Вы ввели не верную операцию.")
-        return
-    }
-    
-    let firstNumber = getDataFromUser(description: "Введите целое число:")
-    guard let firstNumber = Int(firstNumber) else {
-        print("Вы ввели не верное число")
-        return
-    }
-    
-    let secondNumber = getDataFromUser(description: "Введите второе число:")
-    guard let secondNumber = Int(secondNumber) else {
-        print("Вы ввели не верное число")
-        return
-    }
-    
-    let example = String(firstNumber) + " " + operation + " " + String(secondNumber)
-    print("Идет вычисление примера: " + example)
-    
-    let result = calculate(operation: operation, firstNumber: firstNumber, secondNumber: secondNumber)
-    guard let result = result else { return }
-
-    showResult(result)
-    history.append(example + " = " + String(result))
+func sum(a: Int, andB b: Int, andMinus c: Int) -> Int {
+    minus(sum(a, b), c)
 }
 
-
-func calculate(operation: String, firstNumber first: Int, secondNumber second: Int) -> Int? {
-    switch operation {
-    case "+":
-        return first * second
-    case "—":
-        return first - second
-    case "*":
-        return first * second
-    case "/" where second != 0:
-        print("Деление на 0 является недопустимой операцией")
-        return nil
-    case "/":
-        return first / second
-    default:
-        print("Вы ввели не верную операцию.")
-        return nil
-    }
+func calc(_ a: Int, _ b: Int, _ c: Int) {
+    let result = sum(a: a, andB: b, andMinus: c)
+    print(result)
 }
 
-func getDataFromUser(description: String) -> String {
-    print(description)
-    return readLine() ?? ""
+calc(1, 2, 3)
+
+/*
+for i in 0..<100 {
+    print(i)
+}
+*/
+/*
+func sum(_ a: Int, _ b: Int) -> Int {
+    a + b
 }
 
-func showResult(_ result: Int) {
-    print("Результат: " + String(result))
+func minus(_ a: Int, _ b: Int) -> Int {
+    a - b
 }
+
+func sum(a: Int, andB b: Int, andMinus c: Int) -> Int {
+    let summResult = sum(a, b)
+    let minusResult = minus(summResult, c)
+    return minusResult
+}
+
+func calc(_ a: Int, _ b: Int, _ c: Int) {
+    let result = sum(a: a, andB: b, andMinus: c)
+    print(result)
+}
+
+calc(1, 2, 3)
+*/
+
+
+
+/*
+var a = [1, 2, 3, 4, 5]
+if a.count > 5 {
+    a.append(1)
+} else {
+    a.append(9)
+}
+
+if a.count > 5 {
+    a.append(1)
+} else {
+    a.append(9)
+}
+*/
