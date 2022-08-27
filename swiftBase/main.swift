@@ -1,84 +1,193 @@
-import Darwin
+print("Введите целое число:")
+let a = readLine() ?? ""
 
+print("Введите второе число:")
+let b = readLine() ?? ""
+
+if let a = Double(a) {
+    if let b = Double(b) {
+        if a != 0 {
+            let x = -b/a
+            print(x)
+        } else {
+            print("Первое число не может равняться нулю")
+        }
+    } else {
+        print("Вы ввели не верное второе число")
+    }
+} else {
+    print("Вы ввели не верное первое число")
+}
+
+/*
+ import Darwin
+ print("Введите целое число:")
+ let a = readLine() ?? ""
+
+ print("Введите второе число:")
+ let b = readLine() ?? ""
+
+ if let a = Double(a) {
+     if let b = Double(b) {
+         let perimeter = 2 * (a + b)
+         let diagonal = sqrt((a * a) + (b * b))
+         print("периметр: " + String(perimeter))
+         print("диагональ: " + String(diagonal))
+     } else {
+         print("Вы ввели не верное второе число")
+     }
+ } else {
+     print("Вы ввели не верное первое число")
+ }
+ */
+
+
+/*
+ print("Введите целое число:")
+ var a = readLine() ?? ""
+
+ print("Введите второе число:")
+ var b = readLine() ?? ""
+
+ print("Введите третье число:")
+ var c = readLine() ?? ""
+
+ var tmp = b
+ b = c
+ c = a
+ a = tmp
+ */
+
+
+/*
+ let kilogramsPerTon = 1000
+ print("Введите килограммы")
+ let kilogram = readLine() ?? ""
+ if let kilogram = Int(kilogram) {
+     let result = kilogram / kilogramsPerTon
+     print(result, "тонн")
+ } else {
+     print("Введено не верное значение")
+ }
+ */
+/*
+ let metersPerKilometer = 1000
+ print("Введите метры")
+ let meters = readLine() ?? ""
+ if let meters = Int(meters) {
+     let result = meters / metersPerKilometer
+     print(result, "км")
+ } else {
+     print("Введено не верное значение")
+ }
+ */
+/*
+ let days = 234
+ let daysPerWeek = 7
+ let weeks = days / daysPerWeek
+ print(weeks)
+ */
+/*
 print("Добро пожаловать в программу калькулятор.")
-var history: [String] = []
-while true {
-    let action = getDataFromUser(description: "Что вы хотите сделать: c - расчет примера. q - завершение работы. h - просмотр истории.")
-    switch action {
-    case "c":
-        calculate()
-    case "q":
-        exit(0)
-    case "h":
-        showHistory()
-    default:
-        print("недопустимое действие")
+
+print("Выберете операцию: +, -, * или /")
+let operation = readLine() ?? ""
+
+print("Введите целое число:")
+let firstNumber = readLine() ?? ""
+
+print("Введите второе число:")
+let secondNumber = readLine() ?? ""
+
+print("Выберете вторую операцию: +, -, * или /")
+let secondOperation = readLine() ?? ""
+
+print("Введите третье число:")
+let thridNumber = readLine() ?? ""
+
+print("Идет вычисление примера: " + firstNumber + " " + operation + " " + secondNumber + " " + secondOperation + " " + thridNumber)
+
+if let firstNumber = Int(firstNumber) {
+    if let secondNumber = Int(secondNumber) {
+        if let thridNumber = Int(thridNumber) {
+            var firstResult: Int?
+            switch operation {
+            case "+": firstResult = firstNumber + secondNumber
+            case "-": firstResult = firstNumber - secondNumber
+            case "*": firstResult = firstNumber * secondNumber
+            case "/":
+                if secondNumber != 0 {
+                    firstResult = firstNumber / secondNumber
+                } else {
+                    print("Деление на 0 является недопустимой операцией")
+                }
+            default: print("Вы ввели не верную первую операцию.")
+            }
+            if let firstResult = firstResult {
+                var result: Int?
+                switch secondOperation {
+                case "+": result = firstResult + thridNumber
+                case "-": result = firstResult - thridNumber
+                case "*": result = firstResult * thridNumber
+                case "/":
+                    if secondNumber != 0 {
+                        result = firstResult / thridNumber
+                    } else {
+                        print("Деление на 0 является недопустимой операцией")
+                    }
+                default: print("Вы ввели не верную вторую операцию.")
+                }
+                if let result = result {
+                    print("Результат: " + String(result))
+                }
+            }
+        }
+    } else {
+        print("Вы ввели не верное второе число")
     }
-    print("")
-    print("---------------------------------------------------------")
-    print("")
+} else {
+    print("Вы ввели не верное первое число")
 }
+*/
 
-func showHistory() {
-    for example in history {
-        print(example)
-    }
-}
+/*
+ print("Добро пожаловать в программу калькулятор.")
 
-func calculate() {
-    let operation = getDataFromUser(description: "Выберете операцию: +, -, * или /")
-    guard operation == "+" || operation == "-" || operation == "*" || operation == "/" else {
-        print("Вы ввели не верную операцию.")
-        return
-    }
-    
-    let firstNumber = getDataFromUser(description: "Введите целое число:")
-    guard let firstNumber = Int(firstNumber) else {
-        print("Вы ввели не верное число")
-        return
-    }
-    
-    let secondNumber = getDataFromUser(description: "Введите второе число:")
-    guard let secondNumber = Int(secondNumber) else {
-        print("Вы ввели не верное число")
-        return
-    }
-    
-    let example = String(firstNumber) + " " + operation + " " + String(secondNumber)
-    print("Идет вычисление примера: " + example)
-    
-    let result = calculate(operation: operation, firstNumber: firstNumber, secondNumber: secondNumber)
-    guard let result = result else { return }
+ print("Выберете операцию: +, -, * или /")
+ let operation = readLine() ?? ""
 
-    showResult(result)
-    history.append(example + " = " + String(result))
-}
+ print("Введите целое число:")
+ let firstNumber = readLine() ?? ""
 
+ print("Введите второе число:")
+ let secondNumber = readLine() ?? ""
 
-func calculate(operation: String, firstNumber first: Int, secondNumber second: Int) -> Int? {
-    switch operation {
-    case "+":
-        return first + second
-    case "-":
-        return first - second
-    case "*":
-        return first * second
-    case "/" where second == 0:
-        print("Деление на 0 является недопустимой операцией")
-        return nil
-    case "/":
-        return first / second
-    default:
-        print("Вы ввели не верную операцию.")
-        return nil
-    }
-}
+ print("Введите третье число:")
+ let thridNumber = readLine() ?? ""
 
-func getDataFromUser(description: String) -> String {
-    print(description)
-    return readLine() ?? ""
-}
+ print("Идет вычисление примера: " + firstNumber + " " + operation + " " + secondNumber + " " + operation + " " + thridNumber)
 
-func showResult(_ result: Int) {
-    print("Результат: " + String(result))
-}
+ if let firstNumber = Int(firstNumber) {
+     if let secondNumber = Int(secondNumber) {
+         if let thridNumber = Int(thridNumber) {
+             switch operation {
+             case "+": print("Результат: " + String(firstNumber + secondNumber + thridNumber))
+             case "-": print("Результат: " + String(firstNumber - secondNumber - thridNumber))
+             case "*": print("Результат: " + String(firstNumber * secondNumber * thridNumber))
+             case "/":
+                 if secondNumber != 0 && thridNumber != 0 {
+                     print("Результат: " + String(firstNumber / secondNumber / thridNumber))
+                 } else {
+                     print("Деление на 0 является недопустимой операцией")
+                 }
+             default: print("Вы ввели не верную операцию.")
+             }
+         }
+     } else {
+         print("Вы ввели не верное второе число")
+     }
+ } else {
+     print("Вы ввели не верное первое число")
+ }
+
+ */
