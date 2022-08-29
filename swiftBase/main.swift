@@ -1,192 +1,197 @@
-let city = ["ленина": ["98г": [(kitchen: (fridge: (fruitBox: ["персик", "яблоко"], milk: "молоко"), tv: "телевизор"), bedroom: (bed: "кровать", armchair: "кресло"))], ]]
+import Darwin
 
-print(city["ленина"]?["98г"]?[0].kitchen.fridge.fruitBox[0])
+let symbols = (
+    empty: " ",
+    player1: "X",
+    player2: "O"
+)
+var field = [[String]]()
+var players = [(name: String, symbol: String)]()
+print("Добро пожаловать в игру крестики нолики")
 
-/*
- let city = [
-     "ленина": [
-         "98г": [
-             (
-                 kitchen: (
-                     fridge: (
-                         fruitBox: [
-                             "персик",
-                             "яблоко"
-                         ],
-                         milk: "молоко"
-                     ),
-                     tv: "телевизор"
-                 ),
-                 bedroom: (
-                     bed: "кровать",
-                     armchair: "кресло"
-                 )
-             )
-         ],
-     ]
- ]
+while true {
+    let player1Name = getDataFromUser(description: "Введите имя первого игрока")
+    let player2Name = getDataFromUser(description: "Введите имя второго игрока")
+    let fieldSize = getDataFromUser(description: "Введите размер игрового поля")
+    guard
+        player1Name.count != 0,
+        player2Name.count != 0,
+        let fieldSize = Int(fieldSize),
+        fieldSize > 0
+    else { continue }
+    players = [
+        (player1Name, symbols.player1),
+        (player2Name, symbols.player2),
+    ]
+    resetFirld(size: fieldSize)
+    printFiled()
+    var winner: String?
+    
+    while winner == nil {
+        turn(playerNumber: 0)
+        if let name = checkPlayerWon() {
+            winner = name
+            break
+        }
+        turn(playerNumber: 1)
+        if let name = checkPlayerWon() {
+            winner = name
+            break
+        }
+    }
+    if let winner = winner {
+        print("Победил: \(winner)")
+    } else {
+        print("Разработчик ошибся")
+    }
+}
 
- let street = city["ленина"]
- let building = street?["98г"]
- let flat = building?[0]
- let bedroom = flat?.bedroom
- let armchair = bedroom?.armchair
- let bed = bedroom?.bed
- let kitchen = flat?.kitchen
- let tv = kitchen?.tv
- let fridge = kitchen?.fridge
- let milk = fridge?.milk
- let box = fridge?.fruitBox
- let pitch = box?[0]
- let apple = box?[1]
+func turn(playerNumber: Int) {
+    let currentPlayer = players[playerNumber]
+    let fieldSize = field.count
+    print("\(currentPlayer.name) делает ход:")
+    while true {
+        let row = getDataFromUser(description: "Введите номер строки")
+        guard let row = Int(row), row <= fieldSize else {
+            print("Введен неверный номер строки")
+            continue
+        }
+        let column = getDataFromUser(description: "Введите номер столбца")
+        guard let column = Int(column), column <= fieldSize else {
+            print("Введен неверный номер столбца")
+            continue
+        }
+        let rowInArray = row - 1
+        let columnInArray = column - 1
+        guard field[rowInArray][columnInArray] == symbols.empty else {
+            print("Такой ход уже был")
+            continue
+        }
+        field[rowInArray][columnInArray] = currentPlayer.symbol
+        printFiled()
+        break
+    }
+}
 
- print("-------------------")
- print(city)
- print("-------------------")
- print(street)
- print("-------------------")
- print(building)
- print("-------------------")
- print(flat)
- print("-------------------")
- print(kitchen)
- print("-------------------")
- print(fridge)
- print("-------------------")
- print(box)
- print("-------------------")
- print(pitch)
- */
-/*
- let pitch = "персик"
- let apple = "яблоко"
- let box = [pitch, apple]
- let milk = "молоко"
- let fridge = (fruitBox: box, milk: milk)
- let tv = "телевизор"
- let kitchen = (fridge: fridge, tv: tv)
- let bed = "кровать"
- let armchair = "кресло"
- let bedroom = (bed: bed, armchair: armchair)
- let flat = (kitchen: kitchen, bedroom: bedroom)
- let building = [flat]
- let street = ["98г": building]
- let city = ["ленина": street]
- print("-------------------")
- print(city)
- print("-------------------")
- print(city["ленина"])
- print("-------------------")
- print(city["ленина"]?["98г"])
- print("-------------------")
- print(city["ленина"]?["98г"]?[0])
- print("-------------------")
- print(city["ленина"]?["98г"]?[0].kitchen)
- print("-------------------")
- print(city["ленина"]?["98г"]?[0].kitchen.fridge)
- print("-------------------")
- print(city["ленина"]?["98г"]?[0].kitchen.fridge.fruitBox)
- print("-------------------")
- print(city["ленина"]?["98г"]?[0].kitchen.fridge.fruitBox[0])
- */
+func checkPlayerWon() -> String? {
+    let symbol = checkPlayerWonByRows()
+        ?? checkPlayerWonByColumn()
+        ?? checkPlayerWonByFirstDiagonal()
+        ?? checkPlayerWonBySecondDiagonal()
+    
+    guard let symbol = symbol else { return nil }
+    
+    for player in players {
+        if player.symbol == symbol {
+            return player.name
+        }
+    }
+    return nil
+}
 
-/*
- let a = [
-     [
-         [1, 2, 3],
-         [2, 4, 6],
-         [3, 6, 9],
-     ],
-     [
-         [4, 5, 6],
-         [5, 25, 30],
-         [6, 30, 36],
-     ],
-     [
-         [7, 8, 9],
-         [8, 64, 79],
-         [9, 79, 91],
-     ]
- ]
- let thridCollection = a[2]
- let secondRow = thridCollection[1]
- let sixtyfour = secondRow[1]
- print(a)
- print(thridCollection)
- print(secondRow)
- print(sixtyfour)
- */
-/*
- let a = [
-     [
-         [1, 2, 3],
-         [2, 4, 6],
-         [3, 6, 9],
-     ],
-     [
-         [4, 5, 6],
-         [5, 25, 30],
-         [6, 30, 36],
-     ],
-     [
-         [7, 8, 9],
-         [8, 64, 79],
-         [9, 79, 91],
-     ]
- ]
- let sixtyfour = a[2][1][1]
- print(sixtyfour)
- */
+func checkPlayerWonByRows() -> String? {
+    let fieldSize = field.count
+    
+    for i in 0..<fieldSize{
+        let firstSymbol = field[i][0]
+        var isWin = true
+        for j in 0..<fieldSize{
+            if field[i][j] != firstSymbol {
+                isWin = false
+                break
+            }
+        }
+        if isWin {
+            return firstSymbol
+        }
+    }
+    return nil
+}
 
-/*
-let a = [[1, 2, 3], [2, 4, 6], [3, 6, 9],]
-let lastRow = a[2]
-let nine = lastRow[2]
-print(a)
-print(lastRow)
-print(nine)
- */
-/*
- let a = [[1, 2, 3], [2, 4, 6], [3, 6, 9],]
- let result = a[2][2]
- print(result)
- */
-/*
- let a = [[1, 2, 3], [2, 4, 6], [3, 6, 9],]
- */
-/*
- let a = [
-     [1, 2, 3],
-     [2, 4, 6],
-     [3, 6, 9],
- ]
- */
-/*
- let result = [1, 2, 3, 4, 5, 6]    [0]
- print(result)
+func checkPlayerWonByColumn() -> String? {
+    let fieldSize = field.count
+    
+    for i in 0..<fieldSize {
+        let firstSymbol = field[0][i]
+        var isWin = true
+        for j in 0..<fieldSize{
+            if field[j][i] != firstSymbol {
+                isWin = false
+                break
+            }
+        }
+        if isWin {
+            return firstSymbol
+        }
+    }
+    return nil
+}
 
- */
-/*
- let a = [1, 2, 3, 4, 5, 6]
- let result = a[0]
- */
+func checkPlayerWonByFirstDiagonal() -> String? {
+    let fieldSize = field.count
+    let firstSymbol = field[0][0]
+    var isWin = true
+    for i in 0..<fieldSize {
+        if field[i][i] != firstSymbol {
+            isWin = false
+            break
+        }
+    }
+    if isWin {
+        return firstSymbol
+    }
+    
+    return nil
+}
 
-/*
- [1, 2, 3, 4, 5, 6]
- ["f", "dd", "21"]
- ["a": 1, "b": 2]
- */
-/*
- let a = 4
- let b = "привет"
- let c = 4.5
- let d = true
+func checkPlayerWonBySecondDiagonal() -> String? {
+    let fieldSize = field.count
+    let lastIndex = fieldSize - 1
+    let firstSymbol = field[0][lastIndex]
+    var isWin = true
+    for i in 0..<fieldSize {
+        if field[i][lastIndex - i] != firstSymbol {
+            isWin = false
+            break
+        }
+    }
+    if isWin {
+        return firstSymbol
+    }
+    
+    return nil
+}
 
- */
+func resetFirld(size: Int){
+    field = [[String]]()
+    for _ in 0..<size {
+        var row = [String]()
+        for _ in 0..<size {
+            row.append(symbols.empty)
+        }
+        field.append(row)
+    }
+}
 
-/*
-4
-"привет"
-4.5
-true
-*/
+func printFiled() {
+    let fieldSize = field.count
+    let dashCount = fieldSize * 2 + 1
+    var resultString = ""
+    for row in field {
+        resultString += "|"
+        for cell in row {
+            resultString += "\(cell)|"
+        }
+        resultString += "\n"
+        for _ in 0..<dashCount {
+            resultString += "_"
+        }
+        resultString += "\n"
+    }
+    print(resultString)
+}
+
+func getDataFromUser(description: String) -> String {
+    print(description)
+    return readLine() ?? ""
+}
