@@ -1,193 +1,192 @@
-print("Введите целое число:")
-let a = readLine() ?? ""
+let city = ["ленина": ["98г": [(kitchen: (fridge: (fruitBox: ["персик", "яблоко"], milk: "молоко"), tv: "телевизор"), bedroom: (bed: "кровать", armchair: "кресло"))], ]]
 
-print("Введите второе число:")
-let b = readLine() ?? ""
-
-if let a = Double(a) {
-    if let b = Double(b) {
-        if a != 0 {
-            let x = -b/a
-            print(x)
-        } else {
-            print("Первое число не может равняться нулю")
-        }
-    } else {
-        print("Вы ввели не верное второе число")
-    }
-} else {
-    print("Вы ввели не верное первое число")
-}
+print(city["ленина"]?["98г"]?[0].kitchen.fridge.fruitBox[0])
 
 /*
- import Darwin
- print("Введите целое число:")
- let a = readLine() ?? ""
+ let city = [
+     "ленина": [
+         "98г": [
+             (
+                 kitchen: (
+                     fridge: (
+                         fruitBox: [
+                             "персик",
+                             "яблоко"
+                         ],
+                         milk: "молоко"
+                     ),
+                     tv: "телевизор"
+                 ),
+                 bedroom: (
+                     bed: "кровать",
+                     armchair: "кресло"
+                 )
+             )
+         ],
+     ]
+ ]
 
- print("Введите второе число:")
- let b = readLine() ?? ""
+ let street = city["ленина"]
+ let building = street?["98г"]
+ let flat = building?[0]
+ let bedroom = flat?.bedroom
+ let armchair = bedroom?.armchair
+ let bed = bedroom?.bed
+ let kitchen = flat?.kitchen
+ let tv = kitchen?.tv
+ let fridge = kitchen?.fridge
+ let milk = fridge?.milk
+ let box = fridge?.fruitBox
+ let pitch = box?[0]
+ let apple = box?[1]
 
- if let a = Double(a) {
-     if let b = Double(b) {
-         let perimeter = 2 * (a + b)
-         let diagonal = sqrt((a * a) + (b * b))
-         print("периметр: " + String(perimeter))
-         print("диагональ: " + String(diagonal))
-     } else {
-         print("Вы ввели не верное второе число")
-     }
- } else {
-     print("Вы ввели не верное первое число")
- }
- */
-
-
-/*
- print("Введите целое число:")
- var a = readLine() ?? ""
-
- print("Введите второе число:")
- var b = readLine() ?? ""
-
- print("Введите третье число:")
- var c = readLine() ?? ""
-
- var tmp = b
- b = c
- c = a
- a = tmp
- */
-
-
-/*
- let kilogramsPerTon = 1000
- print("Введите килограммы")
- let kilogram = readLine() ?? ""
- if let kilogram = Int(kilogram) {
-     let result = kilogram / kilogramsPerTon
-     print(result, "тонн")
- } else {
-     print("Введено не верное значение")
- }
+ print("-------------------")
+ print(city)
+ print("-------------------")
+ print(street)
+ print("-------------------")
+ print(building)
+ print("-------------------")
+ print(flat)
+ print("-------------------")
+ print(kitchen)
+ print("-------------------")
+ print(fridge)
+ print("-------------------")
+ print(box)
+ print("-------------------")
+ print(pitch)
  */
 /*
- let metersPerKilometer = 1000
- print("Введите метры")
- let meters = readLine() ?? ""
- if let meters = Int(meters) {
-     let result = meters / metersPerKilometer
-     print(result, "км")
- } else {
-     print("Введено не верное значение")
- }
+ let pitch = "персик"
+ let apple = "яблоко"
+ let box = [pitch, apple]
+ let milk = "молоко"
+ let fridge = (fruitBox: box, milk: milk)
+ let tv = "телевизор"
+ let kitchen = (fridge: fridge, tv: tv)
+ let bed = "кровать"
+ let armchair = "кресло"
+ let bedroom = (bed: bed, armchair: armchair)
+ let flat = (kitchen: kitchen, bedroom: bedroom)
+ let building = [flat]
+ let street = ["98г": building]
+ let city = ["ленина": street]
+ print("-------------------")
+ print(city)
+ print("-------------------")
+ print(city["ленина"])
+ print("-------------------")
+ print(city["ленина"]?["98г"])
+ print("-------------------")
+ print(city["ленина"]?["98г"]?[0])
+ print("-------------------")
+ print(city["ленина"]?["98г"]?[0].kitchen)
+ print("-------------------")
+ print(city["ленина"]?["98г"]?[0].kitchen.fridge)
+ print("-------------------")
+ print(city["ленина"]?["98г"]?[0].kitchen.fridge.fruitBox)
+ print("-------------------")
+ print(city["ленина"]?["98г"]?[0].kitchen.fridge.fruitBox[0])
+ */
+
+/*
+ let a = [
+     [
+         [1, 2, 3],
+         [2, 4, 6],
+         [3, 6, 9],
+     ],
+     [
+         [4, 5, 6],
+         [5, 25, 30],
+         [6, 30, 36],
+     ],
+     [
+         [7, 8, 9],
+         [8, 64, 79],
+         [9, 79, 91],
+     ]
+ ]
+ let thridCollection = a[2]
+ let secondRow = thridCollection[1]
+ let sixtyfour = secondRow[1]
+ print(a)
+ print(thridCollection)
+ print(secondRow)
+ print(sixtyfour)
  */
 /*
- let days = 234
- let daysPerWeek = 7
- let weeks = days / daysPerWeek
- print(weeks)
+ let a = [
+     [
+         [1, 2, 3],
+         [2, 4, 6],
+         [3, 6, 9],
+     ],
+     [
+         [4, 5, 6],
+         [5, 25, 30],
+         [6, 30, 36],
+     ],
+     [
+         [7, 8, 9],
+         [8, 64, 79],
+         [9, 79, 91],
+     ]
+ ]
+ let sixtyfour = a[2][1][1]
+ print(sixtyfour)
+ */
+
+/*
+let a = [[1, 2, 3], [2, 4, 6], [3, 6, 9],]
+let lastRow = a[2]
+let nine = lastRow[2]
+print(a)
+print(lastRow)
+print(nine)
  */
 /*
-print("Добро пожаловать в программу калькулятор.")
+ let a = [[1, 2, 3], [2, 4, 6], [3, 6, 9],]
+ let result = a[2][2]
+ print(result)
+ */
+/*
+ let a = [[1, 2, 3], [2, 4, 6], [3, 6, 9],]
+ */
+/*
+ let a = [
+     [1, 2, 3],
+     [2, 4, 6],
+     [3, 6, 9],
+ ]
+ */
+/*
+ let result = [1, 2, 3, 4, 5, 6]    [0]
+ print(result)
 
-print("Выберете операцию: +, -, * или /")
-let operation = readLine() ?? ""
+ */
+/*
+ let a = [1, 2, 3, 4, 5, 6]
+ let result = a[0]
+ */
 
-print("Введите целое число:")
-let firstNumber = readLine() ?? ""
+/*
+ [1, 2, 3, 4, 5, 6]
+ ["f", "dd", "21"]
+ ["a": 1, "b": 2]
+ */
+/*
+ let a = 4
+ let b = "привет"
+ let c = 4.5
+ let d = true
 
-print("Введите второе число:")
-let secondNumber = readLine() ?? ""
+ */
 
-print("Выберете вторую операцию: +, -, * или /")
-let secondOperation = readLine() ?? ""
-
-print("Введите третье число:")
-let thridNumber = readLine() ?? ""
-
-print("Идет вычисление примера: " + firstNumber + " " + operation + " " + secondNumber + " " + secondOperation + " " + thridNumber)
-
-if let firstNumber = Int(firstNumber) {
-    if let secondNumber = Int(secondNumber) {
-        if let thridNumber = Int(thridNumber) {
-            var firstResult: Int?
-            switch operation {
-            case "+": firstResult = firstNumber + secondNumber
-            case "-": firstResult = firstNumber - secondNumber
-            case "*": firstResult = firstNumber * secondNumber
-            case "/":
-                if secondNumber != 0 {
-                    firstResult = firstNumber / secondNumber
-                } else {
-                    print("Деление на 0 является недопустимой операцией")
-                }
-            default: print("Вы ввели не верную первую операцию.")
-            }
-            if let firstResult = firstResult {
-                var result: Int?
-                switch secondOperation {
-                case "+": result = firstResult + thridNumber
-                case "-": result = firstResult - thridNumber
-                case "*": result = firstResult * thridNumber
-                case "/":
-                    if secondNumber != 0 {
-                        result = firstResult / thridNumber
-                    } else {
-                        print("Деление на 0 является недопустимой операцией")
-                    }
-                default: print("Вы ввели не верную вторую операцию.")
-                }
-                if let result = result {
-                    print("Результат: " + String(result))
-                }
-            }
-        }
-    } else {
-        print("Вы ввели не верное второе число")
-    }
-} else {
-    print("Вы ввели не верное первое число")
-}
+/*
+4
+"привет"
+4.5
+true
 */
-
-/*
- print("Добро пожаловать в программу калькулятор.")
-
- print("Выберете операцию: +, -, * или /")
- let operation = readLine() ?? ""
-
- print("Введите целое число:")
- let firstNumber = readLine() ?? ""
-
- print("Введите второе число:")
- let secondNumber = readLine() ?? ""
-
- print("Введите третье число:")
- let thridNumber = readLine() ?? ""
-
- print("Идет вычисление примера: " + firstNumber + " " + operation + " " + secondNumber + " " + operation + " " + thridNumber)
-
- if let firstNumber = Int(firstNumber) {
-     if let secondNumber = Int(secondNumber) {
-         if let thridNumber = Int(thridNumber) {
-             switch operation {
-             case "+": print("Результат: " + String(firstNumber + secondNumber + thridNumber))
-             case "-": print("Результат: " + String(firstNumber - secondNumber - thridNumber))
-             case "*": print("Результат: " + String(firstNumber * secondNumber * thridNumber))
-             case "/":
-                 if secondNumber != 0 && thridNumber != 0 {
-                     print("Результат: " + String(firstNumber / secondNumber / thridNumber))
-                 } else {
-                     print("Деление на 0 является недопустимой операцией")
-                 }
-             default: print("Вы ввели не верную операцию.")
-             }
-         }
-     } else {
-         print("Вы ввели не верное второе число")
-     }
- } else {
-     print("Вы ввели не верное первое число")
- }
-
- */
