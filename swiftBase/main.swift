@@ -1,22 +1,20 @@
 import Darwin
-import Foundation
-
 let symbols = (
     empty: " ",
     player1: "X",
     player2: "O"
 )
 var field = [[String]]()
-
 print("Добро пожаловать в игру крестики нолики")
+
 while true {
     let player1Name = getDataFromUser(description: "Введите имя первого игрока")
-    guard player1Name.count != 0 else {
+    guard !player1Name.isEmpty else {
         print("Вы ввели неверное имя первого игрока")
         continue
     }
     let player2Name = getDataFromUser(description: "Введите имя второго игрока")
-    guard player2Name.count != 0 else {
+    guard !player2Name.isEmpty else {
         print("Вы ввели неверное имя второго игрока")
         continue
     }
@@ -25,7 +23,6 @@ while true {
         print("Вы ввели неверный размер игрового поля")
         continue
     }
-    
     field = [[String]]()
     for _ in 0..<fieldSize {
         var row = [String]()
@@ -44,9 +41,7 @@ while true {
             winnerSymbol = symbol
             break
         }
-        if checkIfGameOver() {
-            break
-        }
+        if checkIfGameOver() { break }
         
         playerTurn(playerName: player2Name, symbol: symbols.player2)
         printField()
@@ -54,9 +49,7 @@ while true {
             winnerSymbol = symbol
             break
         }
-        if checkIfGameOver() {
-            break
-        }
+        if checkIfGameOver() { break }
     }
     
     if winnerSymbol == symbols.player1 {
@@ -67,11 +60,11 @@ while true {
         print("Игра окончилась в ничью")
     }
     
+    
     let shouldStartNewGame = getDataFromUser(description: "Если хотите начать новую игру введите - да")
     if shouldStartNewGame != "да" {
         exit(0)
     }
-    
 }
 
 func checkPlayerWon() -> String? {
@@ -133,7 +126,7 @@ func checkPlayerWonByColumn() -> String? {
             break
         }
         var isWin = true
-        for j in 0..<fieldSize{
+        for j in 0..<fieldSize {
             if field[j][i] != firstSymbol {
                 isWin = false
                 break
@@ -148,14 +141,13 @@ func checkPlayerWonByColumn() -> String? {
 
 func checkPlayerWonByRows() -> String? {
     let fieldSize = field.count
-    
     for i in 0..<fieldSize {
         let firstSymbol = field[i][0]
         if firstSymbol == symbols.empty {
-            break
+            return nil
         }
         var isWin = true
-        for j in 0..<fieldSize{
+        for j in 0..<fieldSize {
             if field[i][j] != firstSymbol {
                 isWin = false
                 break
@@ -169,19 +161,14 @@ func checkPlayerWonByRows() -> String? {
 }
 
 func checkIfGameOver() -> Bool {
-    var isEmptyCell = false
     for row in field {
         for cell in row {
             if cell == symbols.empty {
-                isEmptyCell = true
-                break
+                return false
             }
         }
-        if isEmptyCell {
-            break
-        }
     }
-    return !isEmptyCell
+    return true
 }
 
 func playerTurn(playerName: String, symbol: String) {
@@ -198,14 +185,13 @@ func playerTurn(playerName: String, symbol: String) {
             print("Введен неверный номер столбца")
             continue
         }
-        let rowInArray = row - 1
-        let columnInArray = column - 1
-        
-        guard field[rowInArray][columnInArray] == symbols.empty else {
+        let filedRow = row - 1
+        let filedColumn = column - 1
+        guard field[filedRow][filedColumn] == symbols.empty else {
             print("Такой ход уже был")
             continue
         }
-        field[rowInArray][columnInArray] = symbol
+        field[filedRow][filedColumn] = symbol
         break
     }
 }
