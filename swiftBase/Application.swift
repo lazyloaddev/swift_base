@@ -1,227 +1,434 @@
-class Person {
+import Darwin
 
-    let surname: String
+class Shape {
+
     let name: String
-    let patronymic: String?
+    let color: String
+    let x: Int
+    let y: Int
     
-    init(surname: String, name: String, patronymic: String?) {
-        self.surname = surname
+    
+    init(name: String, color: String, x: Int, y: Int) {
         self.name = name
-        self.patronymic = patronymic
+        self.color = color
+        self.x = x
+        self.y = y
     }
     
-    func getFullName() -> String {
-        return "\(name) \(surname) \(patronymic ?? "")"
+    func paint() -> String {
+        let shapeDetails = makeShapeDetails()
+        let area = makeArea()
+        return """
+        Название: \(name)
+        Площадь: \(area)
+        Цвет: \(color)
+        Координаты:
+            x: \(x)
+            y: \(y)
+        Особые свойства:
+        \(shapeDetails)
+        """
+    }
+    
+    func makeShapeDetails() -> String {
+        "Неизвестно"
+    }
+    
+    func makeArea() -> String {
+        "Неизвестно"
     }
     
 }
 
+class Circle: Shape {
+    
+    let radius: Double
+    
+    init(name: String, color: String, x: Int, y: Int, radius: Double) {
+        self.radius = radius
+        super.init(name: name, color: color, x: x, y: y)
+    }
+    
+    override func makeShapeDetails() -> String {
+        """
+            радиус: \(radius)
+        """
+    }
+    
+    override func makeArea() -> String {
+        let area = Double.pi * radius * radius
+        return String(area)
+    }
+    
+}
+
+class Triangle: Shape {
+    
+    let sideA: Double
+    let sideB: Double
+    let sideC: Double
+    
+    
+    init(name: String, color: String, x: Int, y: Int, sideA: Double, sideB: Double, sideC: Double) {
+        self.sideA = sideA
+        self.sideB = sideB
+        self.sideC = sideC
+        super.init(name: name, color: color, x: x, y: y)
+    }
+    
+    override func makeShapeDetails() -> String {
+        """
+            сторона а: \(sideA)
+            сторона b: \(sideB)
+            сторона c: \(sideC)
+        """
+    }
+    
+    override func makeArea() -> String {
+        let p = (sideA + sideB + sideC) / 2
+        let area = sqrt(p * (p - sideA) * (p - sideB) * (p - sideC))
+        return String(area)
+    }
+    
+}
+
+class Square: Shape {
+    
+    let sideA: Double
+    let sideB: Double
+    
+    init(name: String, color: String, x: Int, y: Int, sideA: Double, sideB: Double) {
+        self.sideA = sideA
+        self.sideB = sideB
+        super.init(name: name, color: color, x: x, y: y)
+    }
+    
+    override func makeShapeDetails() -> String {
+        """
+            сторона а: \(sideA)
+            сторона b: \(sideB)
+        """
+    }
+    
+    override func makeArea() -> String {
+        let area = sideA * sideB
+        return String(area)
+    }
+    
+}
 
 @main
 struct Application {
     static func main() throws {
-        let person1 = Person(surname: "Иванов", name: "Иван", patronymic: "Иванович")
-        print(person1.getFullName())
-        let person2 = Person(surname: "Кузьмин", name: "Кузьма", patronymic: "Кузьмич")
-        print(person2.getFullName())
+        let shapes = [
+            Circle(name: "Круг", color: "Красный", x: 0, y: 0, radius: 35),
+            Square(name: "Квадрат", color: "Синий", x: 100, y: 50, sideA: 4, sideB: 27),
+            Triangle(name: "Треугольник", color: "Зеленый", x: 70, y: 90, sideA: 12, sideB: 6, sideC: 9),
+        ]
+        
+        for shape in shapes {
+            print(shape.paint())
+            print("-----------")
+        }
     }
 }
 
-/*
- class Person {
 
-     let surname: String
+/*
+ class Shape {
+
      let name: String
-     let patronymic: String?
+     let color: String
+     let x: Int
+     let y: Int
      
-     init(surname: String, name: String, patronymic: String?) {
-         self.surname = surname
+     
+     init(name: String, color: String, x: Int, y: Int) {
          self.name = name
-         self.patronymic = patronymic
+         self.color = color
+         self.x = x
+         self.y = y
      }
      
-     func getFullName() -> String {
-         return "\(self.name) \(self.surname) \(self.patronymic ?? "")"
+     func paint() -> String {
+         let shapeDetails = makeShapeDetails()
+         let area = makeArea()
+         return """
+         Название: \(name)
+         Площадь: \(area)
+         Цвет: \(color)
+         Координаты:
+             x: \(x)
+             y: \(y)
+         Особые свойства:
+         \(shapeDetails)
+         """
      }
      
- }
- */
-
-/*
- class Person {
-
-     let surname
-     let name
-     let patronymic: String?
-     
-     init() {
-         
+     func makeShapeDetails() -> String {
+         "Неизвестно"
      }
      
- }
- */
-
-/*
- class Person {
-
-     let surname = ""
-     let name = ""
-     let patronymic: String?
-     
-     init() {
-         
+     func makeArea() -> String {
+         "Неизвестно"
      }
      
  }
- */
+ func paint() -> String {
+     let shapeDetails = makeShapeDetails()
+     let area = makeArea()
+     return """
+     Название: \(name)
+     Площадь: \(area)
+     Цвет: \(color)
+     Координаты:
+         x: \(x)
+         y: \(y)
+     Особые свойства:
+     \(shapeDetails)
+     """
+ }
 
-/*
- class Person {
+ func makeShapeDetails() -> String {
+     switch name {
+     case "Круг":
+         return makeShapeDetailsForCircle()
+     case "Квадрат":
+         return makeShapeDetailsForSquare()
+     case "Треугольник":
+         return makeShapeDetailsForTriangle()
+     default:
+         return "Неизвестно"
+     }
+ }
 
-     var surname = ""
-     var name = ""
-     var patronymic: String?
-     
-     init() {
-         
+ func makeArea() -> String {
+     let area: Double?
+     switch name {
+     case "Круг":
+         area = makeAreaForCircle()
+     case "Квадрат":
+         area = makeAreaForSquare()
+     case "Треугольник":
+         area = makeAreaForTriangle()
+     default:
+         area = nil
      }
      
+     if let area = area {
+         return String(area)
+     } else {
+         return "Неизвестно"
+     }
  }
- */
+ func paint() -> String {
+     let shapeDetails: String
+     switch name {
+     case "Круг":
+         shapeDetails = makeShapeDetailsForCircle()
+     case "Квадрат":
+         shapeDetails = makeShapeDetailsForSquare()
+     case "Треугольник":
+         shapeDetails = makeShapeDetailsForTriangle()
+     default:
+         shapeDetails = "Неизвестно"
+     }
+     
+     let area: String
+     switch name {
+     case "Круг":
+         area = String(makeAreaForCircle())
+     case "Квадрат":
+         area = String(makeAreaForSquare())
+     case "Треугольник":
+         area = String(makeAreaForTriangle())
+     default:
+         area = "Неизвестно"
+     }
+     return """
+     Название: \(name)
+     Площадь: \(area)
+     Цвет: \(color)
+     Координаты:
+         x: \(x)
+         y: \(y)
+     Особые свойства:
+     \(shapeDetails)
+     """
+ }
+ func makeAreaForSquare() -> Double {
+     sideA * sideB
+ }
 
-/*
- class Person {
+ func makeAreaForTriangle() -> Double {
+     let p = (sideA + sideB + sideC) / 2
+     return sqrt(p * (p - sideA) * (p - sideB) * (p - sideC))
+ }
 
-     var surname = ""
-     var name = ""
-     var patronymic = ""
+ func makeAreaForCircle() -> Double {
+     Double.pi * radius * radius
+ }
+ func paint() -> String {
+     let shapeDetails: String
+     switch name {
+     case "Круг":
+         shapeDetails = makeShapeDetailsForCircle()
+     case "Квадрат":
+         shapeDetails = makeShapeDetailsForSquare()
+     case "Треугольник":
+         shapeDetails = makeShapeDetailsForTriangle()
+     default:
+         shapeDetails = "Неизвестно"
+     }
+     return """
+     Название: \(name)
+     Площадь: Неизвестно
+     Цвет: \(color)
+     Координаты:
+         x: \(x)
+         y: \(y)
+     Особые свойства:
+     \(shapeDetails)
+     """
+ }
+
+ func makeShapeDetailsForSquare() -> String {
+     """
+         сторона а: \(sideA)
+         сторона b: \(sideB)
+     """
+ }
+
+ func makeShapeDetailsForTriangle() -> String {
+     """
+         сторона а: \(sideA)
+         сторона b: \(sideB)
+         сторона c: \(sideC)
+     """
+ }
+
+ func makeShapeDetailsForCircle() -> String {
+     """
+         радиус: \(radius)
+     """
+ }
+ func paint() -> String {
+     let shapeDetails: String
+     switch name {
+     case "Круг":
+         shapeDetails = """
+             радиус: \(radius)
+         """
+     case "Квадрат":
+         shapeDetails = """
+             сторона а: \(sideA)
+             сторона b: \(sideB)
+         """
+     case "Треугольник":
+         shapeDetails = """
+             сторона а: \(sideA)
+             сторона b: \(sideB)
+             сторона c: \(sideC)
+         """
+     default:
+         shapeDetails = "Неизвестно"
+     }
+     return """
+     Название: \(name)
+     Площадь: Неизвестно
+     Цвет: \(color)
+     Координаты:
+         x: \(x)
+         y: \(y)
+     Особые свойства:
+     \(shapeDetails)
+     """
+ }
+ let shapes = [
+     Shape(name: "Круг", color: "Красный", x: 0, y: 0, sideA: 0, sideB: 0, sideC: 0, radius: 35),
+     Shape(name: "Квадрат", color: "Синий", x: 100, y: 50, sideA: 4, sideB: 27, sideC: 0, radius: 0),
+     Shape(name: "Треугольник", color: "Зеленый", x: 70, y: 90, sideA: 12, sideB: 6, sideC: 9, radius: 0),
+ ]
+ class Shape {
+
+     let name: String
+     let color: String
+     let x: Int
+     let y: Int
+     let sideA: Double
+     let sideB: Double
+     let sideC: Double
+     let radius: Double
+     
+     init(
+         name: String,
+         color: String,
+         x: Int,
+         y: Int,
+         sideA: Double,
+         sideB: Double,
+         sideC: Double,
+         radius: Double
+     ) {
+         self.name = name
+         self.color = color
+         self.x = x
+         self.y = y
+         self.sideA = sideA
+         self.sideB = sideB
+         self.sideC = sideC
+         self.radius = radius
+     }
+     
+     func paint() -> String {
+         """
+         Название: \(name)
+         Площадь: Неизвестно
+         Цвет: \(color)
+         Координаты:
+             x: \(x)
+             y: \(y)
+         """
+     }
      
  }
-
-
- @main
- struct Application {
-     static func main() throws {
-         let person1 = Person()
-         person1.surname = "Иванов"
-         person1.name = "Иван"
-         person1.patronymic = "Иванович"
-         print(person1.surname, person1.name, person1.patronymic!)
-         let person2 = Person()
-         person2.surname = "Кузьмин"
-         person2.name = "Кузьма"
-         person2.patronymic = "Кузьмич"
-         print(person2.surname, person2.name, person2.patronymic!)
-     }
+ for shape in shapes {
+     print(shape.paint())
+     print("-----------")
  }
- */
+ func paint() -> String {
+     """
+     Название: \(name)
+     Площадь: Неизвестно
+     Цвет: \(color)
+     Координаты:
+         x: \(x)
+         y: \(y)
+     """
+ }
+ let shapes = [
+     Shape(name: "Круг", color: "Красный", x: 0, y: 0),
+     Shape(name: "Квадрат", color: "Синий", x: 100, y: 50),
+     Shape(name: "Треугольник", color: "Зеленый", x: 70, y: 90),
+ ]
 
-/*
- class Person {
+ for shape in shapes {
+     print(shape)
+ }
+ class Shape {
 
-     var surname = "Иванов"
-     var name = "Иван"
-     var patronymic = "Иванович"
+     let name: String
+     let color: String
+     let x: Int
+     let y: Int
      
- }
-
-
- @main
- struct Application {
-     static func main() throws {
-         let person1 = Person()
-         print(person1.surname, person1.name, person1.patronymic)
-         let person2 = Person()
-         person2.surname = "Кузьмин"
-         person2.name = "Кузьма"
-         person2.patronymic = "Кузьмич"
-         print(person2.surname, person2.name, person2.patronymic)
-     }
- }
- */
-
-/*
- class Person {
-
-     let surname = "Иванов"
-     let name = "Иван"
-     let patronymic = "Иванович"
      
- }
-
-
- @main
- struct Application {
-     static func main() throws {
-         let person1 = Person()
-         print(person1.surname, person1.name, person1.patronymic)
-         let person2 = Person()
-         print(person2.surname, person2.name, person2.patronymic)
+     init(name: String, color: String, x: Int, y: Int) {
+         self.name = name
+         self.color = color
+         self.x = x
+         self.y = y
      }
- }
- */
-/*
- class Person {
-
-     let surname = "Иванов"
-     let name = "Иван"
-     let patronymic = "Иванович"
      
- }
-
-
- @main
- struct Application {
-     static func main() throws {
-         let person = Person()
-         print(person.surname, person.name, person.patronymic)
-     }
- }
- */
-
-/*
- class Person {}
-
-
- @main
- struct Application {
-     static func main() throws {
-         let person: Person = Person()
-         print(person)
-     }
- }
- */
-/*
- class Person {}
-
- @main
- struct Application {
-     static func main() throws {
-         print(Person())
-     }
- }
- */
-/*
- class Person {} // Класс
-
-
- @main
- struct Application {
-     static func main() throws {
-         Person()        // Создаем экземпляр данного класса
-     }
- }
- */
-/*
- class Person {}     // Хорошее имя
- class B {}          // Плохое имя
- class 1Person {}    // Некоректное имя, приложение не скомпилиируется
- class person {}     // Плохое имя, выглдяит как переменная, а не тип
- class Myperson {}   // Плохое имя, слова сливаются
- class My_person {}  // Плохое имя, в iOS разрабоке обычно не используют нижнее подчеркивание для разделения слов
- class MyPerson {}   // Хорошее имя
- */
-/*
- class Person {
  }
  */
