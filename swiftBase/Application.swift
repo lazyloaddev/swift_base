@@ -1,305 +1,219 @@
-import Darwin
-
-class A {
-    func getOne() -> Int {
-        return 1
+class Person {
+    var name: String {
+        willSet {
+            print("Имя было изменено. Старое имя \(name). Новое имя \(newValue)")
+        }
     }
-}
 
-class B: A {
-    override func getOne() -> Int {
-        return 4
+    init(name: String) {
+        self.name = name
     }
-}
-
-class C: B {
-    override func getOne() -> Int {
-        return super.getOne()
-    }
+    
 }
 
 @main
 struct Application {
     static func main() throws {
-        let c = C()
-        print(c.getOne())
+        let a = Person(name: "Иван")
+        a.name = "Петр"
     }
 }
 
 /*
- class A {
-     func getOne() -> Int {
-         return 1
+ class Person {
+     var name: String {
+         didSet {
+             print("Имя было изменено. Старое имя \(oldValue). Новое имя \(name)")
+         }
      }
- }
 
- class B: A {
-     override func getOne() -> Int {
-         return super.getOne()
+     init(name: String) {
+         self.name = name
      }
- }
-
- class C: B {
-     override func getOne() -> Int {
-         return super.getOne()
-     }
+     
  }
 
  @main
  struct Application {
      static func main() throws {
-         let c = C()
-         print(c.getOne())
+         let a = Person(name: "Иван")
+         a.name = "Петр"
      }
  }
+ */
+/*
+ class Person {
+     var name: String {
+         willSet {
+             print(newValue)
+         }
+         didSet {
+             print(oldValue)
+         }
+     }
 
+     init(name: String) {
+         self.name = name
+     }
+     
+ }
+ */
+/*
+ class Person {
+     var name: String
+     var surname: String
+     
+     var fullName: String {
+         return "\(name) \(surname)"
+     }
+
+     init(name: String, surname: String) {
+         self.name = name
+         self.surname = surname
+     }
+     
+ }
+ */
+
+/*
+ class Person {
+     var name: String
+     var surname: String
+     
+     var fullName: String {
+         get {
+             return "\(name) \(surname)"
+         }
+     }
+
+     init(name: String, surname: String) {
+         self.name = name
+         self.surname = surname
+     }
+     
+ }
+ */
+/*
+ class Person {
+     var age: Int
+
+     init(age: Int) {
+         self.age = age
+     }
+     
+     func ageAsString() -> String {
+         return String(age)
+     }
+     
+     func setAge(_ age: String) {
+         self.age = Int(age) ?? 0
+     }
+     
+ }
+ */
+/*
+ class Person {
+     var age: Int
+     var stringAge: String {
+         get {
+             return String(age)
+         }
+         set {
+             age = Int(newValue) ?? 0
+         }
+     }
+     init(age: Int) {
+         self.age = age
+     }
+     
+ }
  */
 
 /*
  class A {
-     let one: String
-     
-     init(one: String) {
-         self.one = one
+     var one: String {
+         get {
+             return "Hello"
+         }
+         set {
+             print(newValue)
+         }
      }
      
- }
-
- class B: A {
-     
-     override init(one: String) {
-         print("Привет 2")
-         super.init(one: one)
-     }
  }
 
  @main
  struct Application {
      static func main() throws {
-         let b = B(one: "f")
+         let a = A()
+         print(a.one)
+         a.one = "world"
+     }
+ */
+
+/*
+ class A {
+     lazy var one = SomeBigImage()
+ }
+ */
+/*
+ class A {
+     lazy var one = "hello"
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let a = A()
+         a.one = "world"
+     }
+ }
+ */
+
+/*
+ class A {
+     var one: String?
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let a = A()
+         a.one = "world"
      }
  }
  */
 /*
  class A {
+     var one: String
      
      init() {
-         print("Привет 1")
-     }
-     
- }
-
- class B: A {
-     
-     override init() {
-         print("Привет 2")
+         self.one = "Hello"
      }
  }
 
  @main
  struct Application {
      static func main() throws {
-         let b = B()
-     }
- }
- */
-/*
- class A {
-     
-     func getOne() -> Int {
-         return 1
-     }
-     
- }
-
- class B: A {
-     
-     override func getOne() -> Int {
-         return super.getOne() + 1
-     }
-     
-     func getTwo() -> [Int] {
-         return [
-             getOne(),
-             super.getOne(),
-             getOne() + super.getOne()
-         ]
-     }
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let b = B()
-         print(b.getTwo())
+         let a = A()
+         a.one = "world"
      }
  }
  */
 
 /*
  class A {
-     
-     func getOne() -> Int {
-         return 1
-     }
-     
- }
-
- class B: A {
-     override func getOne() -> Int {
-         return super.getOne() + 1
-     }
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let b = B()
-         print(b.super.getOne())
-     }
+     var one = "Hello"
  }
  */
 
 /*
  class A {
+     let one = "Hello"
+     let two: Int
      
-     func getOne() -> Int {
-         return 1
+     init() {
+         two = 2
      }
-     
- }
-
- class B: A {
-     override func getOne() -> Int {
-         return 10
-     }
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let b = B()
-         print(b.getOne())
-     }
- }
- */
-
-/*
- class A {
-     
-     func getOne() -> Int {
-         return 1
-     }
-     
- }
-
- class B: A {
-     func getTwo() -> Int {
-         return getOne() + 2
-     }
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let b = B()
-         print(b.getTwo())
-     }
- }
- */
-
-/*
- class A {
-     
-     func getOne() -> Int {
-         return 1
-     }
-     
- }
-
- class B: A {
-     func getTwo() -> Int {
-         return 2
-     }
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let b = B()
-         print(b.getOne(), b.getTwo())
-     }
- }
- /* В консоле мы увидим
- 1 2
- */
- */
-
-/*
- class A {
-     let one: String
-     
-     init(one: String) {
-         self.one = one
-     }
- }
-
- class B: A {
-     let two = "Мир"
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let b = B(one: "aa")
-         print(b.one, b.two)
-     }
- }
- */
-
-/*
- class A {
-     let one: String
-     
-     init(one: String) {
-         self.one = one
-     }
- }
-
- class B: A {
-     let two: String
-     
-     init(one: String, two: String) {
-         self.two = two
-         super.init(one: one)
-     }
- }
- */
-/*
- class A {
-     let one = "Привет"
- }
-
- class B: A {
-     let two = "Мир"
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let b = B()
-         print(b.one, b.two)
-     }
- }
- */
-
-
-/*
- class A {
-     
- }
-
- class B: A {
-     
  }
  */
