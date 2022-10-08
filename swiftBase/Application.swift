@@ -1,12 +1,12 @@
-class Person {
-    var name: String {
-        willSet {
-            print("Имя было изменено. Старое имя \(name). Новое имя \(newValue)")
-        }
+class A {
+    let a: Int
+    
+    init(a: Int) {
+        self.a = a
     }
-
-    init(name: String) {
-        self.name = name
+    
+    deinit {
+        print("объект выгружен из памяти")
     }
     
 }
@@ -14,116 +14,91 @@ class Person {
 @main
 struct Application {
     static func main() throws {
-        let a = Person(name: "Иван")
-        a.name = "Петр"
+        test()
+    }
+    
+    static func test() {
+        let a = A(a: 8)
     }
 }
 
 /*
- class Person {
-     var name: String {
-         didSet {
-             print("Имя было изменено. Старое имя \(oldValue). Новое имя \(name)")
-         }
+ class A {
+     let a: Int
+     
+     init(a: Int) {
+         print("Фаза 1, класс А")
+         self.a = a
+         print("Фаза 2, класс А")
      }
+ }
 
-     init(name: String) {
-         self.name = name
+ class B: A {
+     
+     let b: Int
+     
+     init(a: Int, b: Int) {
+         self.b = b
+         print("Фаза 1, класс B")
+         super.init(a: a)
+         print("Фаза 2, класс B")
      }
      
  }
 
- @main
- struct Application {
-     static func main() throws {
-         let a = Person(name: "Иван")
-         a.name = "Петр"
-     }
- }
- */
-/*
- class Person {
-     var name: String {
-         willSet {
-             print(newValue)
-         }
-         didSet {
-             print(oldValue)
-         }
-     }
-
-     init(name: String) {
-         self.name = name
+ class C: B {
+     
+     let c: Int
+     
+     init(a: Int, b: Int, c: Int) {
+         self.c = c
+         print("Фаза 1, класс C")
+         super.init(a: a, b: b)
+         print(self.some())
+         print("Фаза 2, класс C")
      }
      
- }
- */
-/*
- class Person {
-     var name: String
-     var surname: String
-     
-     var fullName: String {
-         return "\(name) \(surname)"
+     convenience init() {
+         print("Фаза 1, класс C вспомогательный конструктор")
+         self.init(a: 1, b: 2, c: 3)
+         print("Фаза 2, класс C вспомогательный конструктор")
      }
-
-     init(name: String, surname: String) {
-         self.name = name
-         self.surname = surname
+     
+     func some() {
+         print("some")
      }
      
  }
  */
 
 /*
- class Person {
-     var name: String
-     var surname: String
-     
-     var fullName: String {
-         get {
-             return "\(name) \(surname)"
-         }
-     }
-
-     init(name: String, surname: String) {
-         self.name = name
-         self.surname = surname
-     }
-     
- }
+ Фаза 1, класс C вспомогательный конструктор
+ Фаза 1, класс C
+ Фаза 1, класс B
+ Фаза 1, класс А
+ Фаза 2, класс А
+ Фаза 2, класс B
+ Фаза 2, класс C
+ Фаза 2, класс C вспомогательный конструктор
  */
-/*
- class Person {
-     var age: Int
 
-     init(age: Int) {
-         self.age = age
-     }
-     
-     func ageAsString() -> String {
-         return String(age)
-     }
-     
-     func setAge(_ age: String) {
-         self.age = Int(age) ?? 0
-     }
-     
- }
- */
 /*
- class Person {
-     var age: Int
-     var stringAge: String {
-         get {
-             return String(age)
-         }
-         set {
-             age = Int(newValue) ?? 0
-         }
+ class A {
+     
+     let sideA: Int
+     let sideB: Int
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
      }
-     init(age: Int) {
-         self.age = age
+     
+     convenience init(side: Int) {
+         self.init(sideA: side, sideB: side)
+     }
+     
+     convenience init() {
+         self.init(sideA: 10, sideB: 10)
      }
      
  }
@@ -131,64 +106,222 @@ struct Application {
 
 /*
  class A {
-     var one: String {
-         get {
-             return "Hello"
-         }
-         set {
-             print(newValue)
-         }
+     
+     let sideA: Int
+     let sideB: Int
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     required init(side: Int) {
+         self.sideA = side
+         self.sideB = side
      }
      
  }
 
- @main
- struct Application {
-     static func main() throws {
-         let a = A()
-         print(a.one)
-         a.one = "world"
+ class B: A {
+     init() {
+         super.init(sideA: 10, sideB: 12)
      }
- */
-
-/*
- class A {
-     lazy var one = SomeBigImage()
- }
- */
-/*
- class A {
-     lazy var one = "hello"
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let a = A()
-         a.one = "world"
+     
+     required init(side: Int) {
+         super.init(side: side)
      }
  }
  */
 
 /*
  class A {
-     var one: String?
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let a = A()
-         a.one = "world"
-     }
- }
- */
-/*
- class A {
-     var one: String
      
      init() {
-         self.one = "Hello"
+         print("1")
+     }
+     
+ }
+
+ class B: A {
+     override init() {
+         print("2")
+     }
+ }
+ */
+/*
+ class A {
+     
+     let sideA: Int
+     let sideB: Int
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     init(side: Int) {
+         self.sideA = side
+         self.sideB = side
+     }
+     
+ }
+
+ class B: A {
+     init() {
+         super.init(sideA: 10, sideB: 12)
+     }
+ }
+ */
+
+/*
+ class A {
+     
+     let sideA: Int
+     let sideB: Int
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+ }
+
+ class B: A {
+     init(side: Int) {
+         super.init(sideA: side, sideB: side)
+     }
+ }
+ */
+/*
+ class A {
+     
+     let sideA: Int
+     let sideB: Int
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+ }
+
+ class B: A {
+     override init(sideA: Int, sideB: Int) {
+         super.init(sideA: sideA * 2, sideB: sideB * 2)
+     }
+ }
+ */
+
+/*
+ class A {
+     
+     let sideA: Int
+     let sideB: Int
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+ }
+
+ class B: A {}
+ */
+
+/*
+ class A {
+     
+     init() {
+         print("1")
+     }
+     
+ }
+
+ class B: A {}
+
+ @main
+ struct Application {
+     static func main() throws {
+         let b = B()
+     }
+ }
+ */
+/*
+ class Square {
+     let sideA: Int
+     let sideB: Int
+     
+     init?(sideA: Int, sideB: Int) {
+         guard sideA > 0 && sideB > 0 else { return nil }
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+ }
+ */
+
+/*
+ class Square {
+     let sideA: Int
+     let sideB: Int
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     init(side: Int) {
+         self.sideA = side
+         self.sideB = side
+     }
+     
+     init(sideA: Int) {
+         self.sideA = sideA
+     }
+     
+ }
+ */
+
+/*
+ class Square {
+     let sideA: Int
+     let sideB: Int
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     init(side: Int) {
+         self.sideA = side
+         self.sideB = side
+     }
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let square1 = Square(sideA: 10, sideB: 20)
+         let square2 = Square(side: 4)
+     }
+ }
+ */
+
+/*
+ class A {}
+
+ class B {
+     let f = 1
+ }
+
+ let a = A()
+ let b = B()
+ */
+
+/*
+ class A {
+     init(a: String) {
+         print(a)
      }
  }
 
@@ -196,24 +329,16 @@ struct Application {
  struct Application {
      static func main() throws {
          let a = A()
-         a.one = "world"
      }
- }
  */
 
 /*
  class A {
-     var one = "Hello"
+     init() {}
  }
+ let a = A()
  */
-
 /*
- class A {
-     let one = "Hello"
-     let two: Int
-     
-     init() {
-         two = 2
-     }
- }
+ class A {}
+ let a = A()
  */
