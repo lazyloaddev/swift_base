@@ -1,65 +1,64 @@
-class Filed {
-    let fieldSize: Int
-    var field = [[String]]()
+class Square {
+    private(set) var sideA: Int
+    private(set) public var sideB: Int
     
-    init(fieldSize: Int) {
-        self.fieldSize = fieldSize
-        makeField()
+    init(sideA: Int, sideB: Int) {
+        self.sideA = sideA
+        self.sideB = sideB
     }
     
-    
-    func makeField() {
-        field = [[String]]()
-        for _ in 0..<fieldSize {
-            var row = [String]()
-            for _ in 0..<fieldSize {
-                row.append(" ")
-            }
-            field.append(row)
-        }
+    func area() -> Int {
+        sideA * sideB
     }
-    
-    subscript() -> Int {
-        fieldSize
-    }
-    
-    subscript(row: Int, column: Int) -> String? {
-        get {
-            guard row < fieldSize, column < fieldSize else { return nil }
-            
-            return field[row][column]
-        }
-        set(symbol) {
-            guard
-                let symbol = symbol,
-                row < fieldSize,
-                column < fieldSize,
-                field[row][column] != " "
-            else { return }
-            
-            field[row][column] = symbol
-        }
-    }
-    
 }
 
 @main
 struct Application {
     static func main() throws {
-        let field = Filed(fieldSize: 3)
-        field.makeField()
-        field.symbol(row: 0, column: 0)
-        let dsd = field[]
-        field[row: 0, column: 0]
+        let square = Square(sideA: 10, sideB: 20)
+        let area = square.area()
     }
 }
 
 /*
- subscript(row: Int, column: Int) -> String? {
-     get {
-         guard row < fieldSize, column < fieldSize else { return nil }
-         
-         return field[row][column]
+ class Square {
+     private let sideA: Int
+     private let sideB: Int
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     func area() -> Int {
+         sideA * sideB
+     }
+ }
+
+
+ @main
+ struct Application {
+     static func main() throws {
+         let square = Square(sideA: 10, sideB: 20)
+         let area = square.area()
+     }
+ }
+ */
+
+/*
+ class Square {
+     var sideA = 0
+     var sideB = 0
+ }
+
+
+ @main
+ struct Application {
+     static func main() throws {
+         let square = Square()
+         square.sideA = 10
+         square.sideB = 20
+         let area = square.sideA * square.sideB
      }
  }
  */
@@ -67,7 +66,7 @@ struct Application {
 /*
  class Filed {
      let fieldSize: Int
-     var field = [[String]]()
+     private var field = [[String]]()
      
      init(fieldSize: Int) {
          self.fieldSize = fieldSize
@@ -84,10 +83,6 @@ struct Application {
              }
              field.append(row)
          }
-     }
-     
-     subscript() -> Int {
-         fieldSize
      }
      
      subscript(row: Int, column: Int) -> String? {
@@ -109,41 +104,5 @@ struct Application {
      }
      
  }
- */
 
-/*
- class Filed {
-     let fieldSize: Int
-     var field = [[String]]()
-     
-     init(fieldSize: Int) {
-         self.fieldSize = fieldSize
-         makeField()
-     }
-     
-     
-     func makeField() {
-         field = [[String]]()
-         for _ in 0..<fieldSize {
-             var row = [String]()
-             for _ in 0..<fieldSize {
-                 row.append(" ")
-             }
-             field.append(row)
-         }
-     }
-     
- }
- */
-
-/*
- let fieldSize = 3
- var field = [[String]]()
- for _ in 0..<fieldSize {
-     var row = [String]()
-     for _ in 0..<fieldSize {
-         row.append(" ")
-     }
-     field.append(row)
- }
  */
