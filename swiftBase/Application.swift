@@ -1,6 +1,7 @@
 class Square {
     private(set) var sideA: Int
     private(set) public var sideB: Int
+    static let zeroSide = 0
     
     init(sideA: Int, sideB: Int) {
         self.sideA = sideA
@@ -10,20 +11,141 @@ class Square {
     func area() -> Int {
         sideA * sideB
     }
+    
+    static func makeZero() -> Square {
+        Square(sideA: zeroSide, sideB: zeroSide)
+    }
+    
+    func test() {
+        print(Self.zeroSide)
+        let a = Self.makeZero()
+        print(a)
+    }
+    
 }
 
 @main
 struct Application {
     static func main() throws {
-        let square = Square(sideA: 10, sideB: 20)
-        let area = square.area()
     }
 }
 
 /*
  class Square {
-     private let sideA: Int
-     private let sideB: Int
+     private(set) var sideA: Int
+     private(set) public var sideB: Int
+     static let zeroSide = 0
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     func area() -> Int {
+         sideA * sideB
+     }
+     
+     static func makeZero() -> Square {
+         Square(sideA: zeroSide, sideB: zeroSide)
+     }
+     
+     func test() {
+         print(Square.zeroSide)
+         let a = Square.makeZero()
+         print(a)
+     }
+     
+ }
+ */
+
+/*
+ static func test() {
+     print(zeroSide)
+     print(self.zeroSide)
+     let a = makeZero()
+     print(a)
+ }
+ */
+/*
+ func test() {
+     print(sideA)
+     print(self.sideA)
+     let area = area()
+ }
+ */
+/*
+ class Square {
+     private(set) var sideA: Int
+     private(set) public var sideB: Int
+     static let zeroSide = 0
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     func area() -> Int {
+         sideA * sideB
+     }
+     
+     static func makeZero() -> Square {
+         Square(sideA: zeroSide, sideB: zeroSide)
+     }
+     
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         print(Square.zeroSide)
+         let a = Square.makeZero()
+         print(a)
+     }
+ }
+ */
+/*
+ class A {
+     static let a = 1
+     
+     static func some() {
+         print(a)
+     }
+ }
+ */
+/*
+ class Square {
+     private(set) var sideA: Int
+     private(set) public var sideB: Int
+     static let zeroSide = 0
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     func area() -> Int {
+         sideA * sideB
+     }
+     
+     static func makeZero() -> Square {
+         Square(sideA: zeroSide, sideB: zeroSide)
+     }
+     
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let square = Square.makeZero()
+     }
+ }
+ */
+
+/*
+ class Square {
+     private(set) var sideA: Int
+     private(set) public var sideB: Int
+     static let zeroSide = 0
      
      init(sideA: Int, sideB: Int) {
          self.sideA = sideA
@@ -35,74 +157,144 @@ struct Application {
      }
  }
 
+ func makeZeroSquare() -> Square {
+     Square(sideA: Square.zeroSide, sideB: Square.zeroSide)
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let square = makeZeroSquare()
+     }
+ }
+
+ */
+
+/*
+ class Square {
+     private(set) var sideA: Int
+     private(set) public var sideB: Int
+     static let zeroSide = 0
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     init() {
+         self.sideA = 0
+         self.sideB = 0
+     }
+     
+     func area() -> Int {
+         sideA * sideB
+     }
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let square = Square()
+     }
+ }
+ */
+
+/*
+ @main
+ struct Application {
+     static func main() throws {
+         let square = Square(sideA: 0, sideB: 0)
+     }
+ }
+ */
+/*
+ class Square {
+     private(set) var sideA: Int
+     private(set) public var sideB: Int
+     let zeroSide = 0
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     func area() -> Int {
+         sideA * sideB
+     }
+ }
 
  @main
  struct Application {
      static func main() throws {
          let square = Square(sideA: 10, sideB: 20)
-         let area = square.area()
+         print(square.zeroSide)
+     }
+ }
+ */
+
+/*
+ class Double {
+     let pi: Double = 3.14
+ }
+ class Float {
+     let pi: Float = 3.14
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         print(Double.pi)
+         print(Float.pi)
+     }
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         print(1.0.pi)
+         print(Float(1.0).pi)
+     }
+ }
+ */
+
+/*
+ let pi = 3.14
+
+ @main
+ struct Application {
+     static func main() throws {
+         print(pi)
      }
  }
  */
 
 /*
  class Square {
-     var sideA = 0
-     var sideB = 0
+     private(set) var sideA: Int
+     private(set) public var sideB: Int
+     
+     init(sideA: Int, sideB: Int) {
+         self.sideA = sideA
+         self.sideB = sideB
+     }
+     
+     func area() -> Int {
+         sideA * sideB
+     }
+     
+     static let zeroSide = 0
+     
+     static func makeZeroSquare() -> Square {
+         return Square(sideA: zeroSide, sideB: zeroSide)
+     }
  }
-
 
  @main
  struct Application {
      static func main() throws {
-         let square = Square()
-         square.sideA = 10
-         square.sideB = 20
-         let area = square.sideA * square.sideB
+         let square = Square.makeZeroSquare()
      }
  }
- */
 
-/*
- class Filed {
-     let fieldSize: Int
-     private var field = [[String]]()
-     
-     init(fieldSize: Int) {
-         self.fieldSize = fieldSize
-         makeField()
-     }
-     
-     
-     func makeField() {
-         field = [[String]]()
-         for _ in 0..<fieldSize {
-             var row = [String]()
-             for _ in 0..<fieldSize {
-                 row.append(" ")
-             }
-             field.append(row)
-         }
-     }
-     
-     subscript(row: Int, column: Int) -> String? {
-         get {
-             guard row < fieldSize, column < fieldSize else { return nil }
-             
-             return field[row][column]
-         }
-         set(symbol) {
-             guard
-                 let symbol = symbol,
-                 row < fieldSize,
-                 column < fieldSize,
-                 field[row][column] != " "
-             else { return }
-             
-             field[row][column] = symbol
-         }
-     }
-     
- }
 
  */
