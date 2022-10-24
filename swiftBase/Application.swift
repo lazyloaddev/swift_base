@@ -1,30 +1,88 @@
-struct A {
-    let age: Int
-    let name: String
-    
-    init(age: Int, name: String) {
-        self.age = age
-        self.name = name
+class Passport {
+    var number: String
+    init(number: String) {
+        self.number = number
     }
 }
+
+struct Person {
+    var name: String
+    var passport: Passport
+    
+    init(name: String, passport: Passport) {
+        self.name = name
+        self.passport = passport
+    }
+}
+
 
 @main
 struct Application {
     static func main() throws {
-        let a = A(age: 12, name: "Иван")
-        let b = A(age: 12, name: "Иван")
-        let result = a == b
-        print(a)
+        var a = Person(
+            name: "Иван",
+            passport: Passport(number: "01 02 334455")
+        )
+        var b = a
+        a.name = "Кузьма"
+        a.passport.number = "00 00 000000"
+        print(a.name, a.passport.number)
+        print(b.name, b.passport.number)
     }
 }
 
 /*
  class A {
-     let age: Int
-     let name: String
+     var name: String
+     init(name: String) {
+         self.name = name
+     }
      
-     init(age: Int, name: String) {
-         self.age = age
+     func copy() -> A {
+         return A(name: name)
+     }
+ }
+
+
+ @main
+ struct Application {
+     static func main() throws {
+         var a = A(name: "Иван")
+         var b = a.copy()
+         print(a, b)
+     }
+ }
+ */
+
+/*
+ class A {
+     var name: String
+     init(name: String) {
+         self.name = name
+     }
+ }
+
+
+ @main
+ struct Application {
+     static func main() throws {
+         var a = A(name: "Иван")
+         var b = A(name: a.name)
+     }
+ }
+ */
+
+/*
+ class A {
+     var name: String
+     init(name: String) {
+         self.name = name
+     }
+ }
+
+ struct B {
+     var name: String
+     init(name: String) {
          self.name = name
      }
  }
@@ -32,21 +90,23 @@ struct Application {
  @main
  struct Application {
      static func main() throws {
-         let a = A(age: 12, name: "Иван")
-         let b = A(age: 12, name: "Иван")
-         let result = a == b
-         print(a)
+         var a = A(name: "Иван")
+         var b = a
+         b.name = "Кузьма"
+         var c = A(name: "Петр")
+         
+         var d = B(name: "Иван")
+         var e = d
+         d.name = "Кузьма"
+         print(a.name, b.name, c.name, d.name)
      }
  }
  */
 
 /*
- struct A {
-     let age: Int
-     let name: String
-     
-     init(age: Int, name: String) {
-         self.age = age
+ class A {
+     var name: String
+     init(name: String) {
          self.name = name
      }
  }
@@ -54,37 +114,27 @@ struct Application {
  @main
  struct Application {
      static func main() throws {
-         let a = A(age: 12, name: "Иван")
-         print(a)
+         // 1
+         var a = A(name: "Иван")
+         // 2
+         var b = A(name: "Иван")
+         // 3
+         var c = A(name: "Иван")
+         // 4
+         b.name = "Кузьма"
+         // 5
+         a.name = "Петр"
+         // 6
+         var d = A(name: "Иван")
+         // 6
+         print(a.name, b.name, c.name, d.name)
      }
  }
  */
-
 /*
- struct A {
-     var age = 0
-     
-     mutating func incrementAge() {
-         age += 1
-     }
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let a = A()
-         a.incrementAge()
-     }
- }
-
- */
-/*
- struct A {
-     let age: Int
-     let name: String
-     
-     init(age: Int, name: String) {
-         self.age = age
+ class A {
+     var name: String
+     init(name: String) {
          self.name = name
      }
  }
@@ -92,34 +142,48 @@ struct Application {
  @main
  struct Application {
      static func main() throws {
-       let a = A(age: 12, name: "Иван")
+         // 1
+         var a = A(name: "Иван")
+         // 2
+         var b = a
+         // 3
+         var c = b
+         // 4
+         b.name = "Кузьма"
+         // 5
+         a.name = "Петр"
+         // 6
+         var d = b
+         print(a.name, b.name, c.name, d.name)
      }
  }
  */
+
 /*
- struct Square {
-     private(set) var sideA: Int
-     private(set) public var sideB: Int
-     static let zeroSide = 0
-     
-     init(sideA: Int, sideB: Int) {
-         self.sideA = sideA
-         self.sideB = sideB
+ struct A {
+     var name: String
+     init(name: String) {
+         self.name = name
      }
-     
-     func area() -> Int {
-         sideA * sideB
-     }
-     
-     static func makeZero() -> Square {
-         Square(sideA: zeroSide, sideB: zeroSide)
-     }
-     
-     func test() {
-         print(Self.zeroSide)
-         let a = Self.makeZero()
-         print(a)
-     }
-     
  }
+
+ @main
+ struct Application {
+     static func main() throws {
+         // 1
+         var a = A(name: "Иван")
+         // 2
+         var b = a
+         // 3
+         var c = b
+         // 4
+         b.name = "Кузьма"
+         // 5
+         a.name = "Петр"
+         // 6
+         var d = b
+         print(a, b, c, d)
+     }
+ }
+
  */
