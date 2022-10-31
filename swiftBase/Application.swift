@@ -1,159 +1,250 @@
-class Passport {
-    
-    var number: String
-    unowned var owner: Person?
-    
-    init(number: String, owner: Person) {
-        self.number = number
-        self.owner = owner
-    }
-    
-    deinit {
-        print("Объект Passport уничтожен")
-    }
-}
-
-class Person {
-    var age: Int
-    var passport: Passport?
-    
-    init(age: Int) {
-        self.age = age
-    }
-    
-    deinit {
-        print("Объект Person уничтожен")
-    }
-    
+enum WorkingMode {
+    case office(String, String)
+    case remote([Int])
+    case mixed(String)
 }
 
 @main
 struct Application {
     static func main() throws {
-        arcTest()
-        print("Конец программы")
-    }
-    
-    static func arcTest() {
-//        let person = Person(age: 13)
-//        let passport = Passport(number: "00 11 223344")
-//        person.passport = passport
-//        passport.owner = person
+        let a = WorkingMode.office("8:00", "17:00")
+        let b = WorkingMode.remote([1, 3, 5])
+        let c = WorkingMode.mixed("Мира 56г-87")
+        switch a {
+        case .office(let startTime, let endTime):
+            print(startTime, endTime)
+        case .remote(let days):
+            print(days)
+        case .mixed(let address):
+            print(address)
+        }
     }
 }
-
 /*
- class Passport {
-     
-     var number: String
-     var owner: Person?
-     
-     init(number: String) {
-         self.number = number
-     }
-     
-     deinit {
-         print("Объект Passport уничтожен")
-     }
- }
-
- class Person {
-     var age: Int
-     var passport: Passport?
-     
-     
-     init(age: Int) {
-         self.age = age
-     }
-     
-     deinit {
-         print("Объект Person уничтожен")
-     }
-     
+ enum WorkingMode {
+     case office(String, String)
+     case remote([Int])
+     case mixed(String)
  }
 
  @main
  struct Application {
      static func main() throws {
-         arcTest()
-         print("Конец программы")
+         let a = WorkingMode.office("8:00", "17:00")
+         let b = WorkingMode.remote([1, 3, 5])
+         let c = WorkingMode.mixed("Мира 56г-87")
      }
-     
-     static func arcTest() {
-         let person = Person(age: 13)
-         let passport = Passport(number: "00 11 223344")
-         person.passport = passport
-         passport.owner = pe
+ }
+ */
+/*
+ enum WorkingMode: String {
+     case office
+     case remote = "Привет"
+     case mixed
+ }
+ */
+/*
+ enum WorkingMode: String {
+     case office
+     case remote
+     case mixed
+ }
+ */
+/*
+ enum WorkingMode: Int {
+     case office = 1
+     case remote = 0
+     case mixed
+ }
+ */
+
+/*
+ enum WorkingMode: Int {
+     case office = 5
+     case remote
+     case mixed
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         print(WorkingMode.office.rawValue)
+         print(WorkingMode.remote.rawValue)
+         print(WorkingMode.mixed.rawValue)
      }
  }
  */
 
 /*
- class A {
-     var age: Int
+ 2
+ 1
+ 0
+ */
+
+/*
+ enum WorkingMode {
+     case office, remote, mixed
      
-     init(age: Int = 0) {
-         self.age = age
+     init?(_ a: Int) {
+         switch a {
+         case 0:
+             self = .office
+         case 1:
+             self = .remote
+         case 2:
+             self = .mixed
+         default:
+             return nil
+         }
      }
      
-     deinit {
-         print("Объект уничтожен")
+     func asInt() -> Int {
+         switch self {
+         case .office:
+             return 0
+         case .remote:
+             return 1
+         case .mixed:
+             return 2
+         }
      }
  }
 
  @main
  struct Application {
      static func main() throws {
-         arcTest()
-         print("Конец программы")
+         let mode = WorkingMode(0)
+         let num = mode?.asInt()
      }
+ }
+ */
+/*
+ enum WorkingMode {
+     case office, remote, mixed
      
-     static func arcTest() {
-         // Первая константа, счетчик ссылок равен 1
-         let a = A(age: 0)
-         for i in 0...15 {
-             // вторая константа будет появляться каждую итерацию, счетчик ссылок будет равен 2
-             let localA = a
-             summ(a: i, b: localA)
-             // в конце итерации будет удаляться константа localA, счетчик ссылок будет уменьшаться до 1
+     init?(_ a: Int) {
+         switch a {
+         case 0:
+             self = .office
+         case 1:
+             self = .remote
+         case 2:
+             self = .mixed
+         default:
+             return nil
          }
-         // в конце функции arcTest удалиться константа a, счетчик ссылок будет уменьшен до 0, объект удалиться из памяти.
      }
  }
 
- // третья константа и будет появляться каждый вызов функуции, счетчик ссылок будет равен 3
- func summ(a: Int, b: A) {
-     b.age += a
-     // в конце функции будет удаляться константа b, счетчик ссылок будет уменьшаться до 2
+ @main
+ struct Application {
+     static func main() throws {
+         let mode = WorkingMode(0)
+     }
  }
  */
 
+/*
+ enum WorkingMode {
+     let some = "some"
+     case office, remote, mixed
+ }
+ */
 
 /*
- // константа v объявлена в глобальной области видимости
- // будет создаваться при запуске программы
- // и удалиться только при завершении программы
- let v = 4
+ enum WorkingMode {
+     case office, remote, mixed
+ }
 
  @main
  struct Application {
      static func main() throws {
-         // в начале каждой итерации будет создаваться новая константа i
-         for i in 0...15 {
-             // на каждой итерации будет создаваться новая константа result
-             let result = summ(a: i, b: v)
-             print(result)
-             // в конце каждой итерации константы i и result будут удаляться
-         }
+         let a: WorkingMode = .remote
+     }
+ }
+ */
+
+/*
+ enum WorkingMode {
+     case office, remote, mixed
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let a: WorkingMode = WorkingMode.remote
      }
  }
 
- // при каждом вызове функции будут создаваться новые константы a и b
- func summ(a: Int, b: Int) -> Int {
-     // при каждом вызове функции будет создаваться новая константа result
-     let result = a + b
-     return result
-     // в конце каждого вызова константы a, b и result будут удаляться
+ */
+
+/*
+ enum WorkingMode {}
+
+ @main
+ struct Application {
+     static func main() throws {
+         let a = WorkingMode()
+     }
+ }
+ */
+/*
+ enum WorkingMode {
+     case office
+     case remote
+     case mixed
+ }
+
+ struct Person {
+     let name: String
+     let age: Int
+     let workingMode: WorkingMode
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let person = Person(name: "Иван", age: 45, workingMode: .remote)
+         
+         if person.workingMode == .office {
+             print("Должен ходить в офис")
+         } else if person.workingMode == .remote {
+             print("Должен сидеть дома")
+         } else if person.workingMode == .mixed {
+             print("Может сидеть дома или ходить в офис")
+         }
+         
+     }
+ }
+ */
+
+/*
+ struct Person {
+     let name: String
+     let age: Int
+     let workingMode: Int
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let person = Person(name: "Иван", age: 45, workingMode: 0)
+         
+         if person.workingMode == 0 {
+             print("Должен ходить в офис")
+         } else if person.workingMode == 1 {
+             print("Должен сидеть дома")
+         } else if person.workingMode == 2 {
+             print("Может сидеть дома или ходить в офис")
+         }
+         
+     }
+ }
+ */
+/*
+ struct Person {
+     let name: String
+     let age: Int
  }
 
  */
