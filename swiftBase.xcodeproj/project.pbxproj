@@ -13,6 +13,7 @@
 		F5568AB6290FD1DA00A15F26 /* TicTackToeSubApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5568AB5290FD1DA00A15F26 /* TicTackToeSubApplication.swift */; };
 		F5568AB8290FD25D00A15F26 /* ExitSubApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5568AB7290FD25D00A15F26 /* ExitSubApplication.swift */; };
 		F587831C284E575B008A355E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B549B4284B486A0007051D /* Main.swift */; };
+		F5AC3F312918D08500E91CD0 /* UserDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AC3F302918D08500E91CD0 /* UserDataProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -47,6 +48,7 @@
 		F5568AB3290FD16E00A15F26 /* CalculatorSubApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorSubApplication.swift; sourceTree = "<group>"; };
 		F5568AB5290FD1DA00A15F26 /* TicTackToeSubApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTackToeSubApplication.swift; sourceTree = "<group>"; };
 		F5568AB7290FD25D00A15F26 /* ExitSubApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitSubApplication.swift; sourceTree = "<group>"; };
+		F5AC3F302918D08500E91CD0 /* UserDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataProvider.swift; sourceTree = "<group>"; };
 		F5B549B1284B486A0007051D /* swiftBase */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = swiftBase; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5B549B4284B486A0007051D /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
@@ -83,6 +85,7 @@
 			children = (
 				F5B549B4284B486A0007051D /* Main.swift */,
 				F5568AAF290FBF5200A15F26 /* Application.swift */,
+				F5AC3F302918D08500E91CD0 /* UserDataProvider.swift */,
 				F5568AB1290FD10200A15F26 /* SubApplication.swift */,
 				F5568AB3290FD16E00A15F26 /* CalculatorSubApplication.swift */,
 				F5568AB5290FD1DA00A15F26 /* TicTackToeSubApplication.swift */,
@@ -120,7 +123,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					F5B549B0284B486A0007051D = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -151,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5568AB0290FBF5200A15F26 /* Application.swift in Sources */,
+				F5AC3F312918D08500E91CD0 /* UserDataProvider.swift in Sources */,
 				F5568AB8290FD25D00A15F26 /* ExitSubApplication.swift in Sources */,
 				F5568AB4290FD16E00A15F26 /* CalculatorSubApplication.swift in Sources */,
 				F5568AB6290FD1DA00A15F26 /* TicTackToeSubApplication.swift in Sources */,
@@ -195,6 +199,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -256,6 +261,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -280,7 +286,9 @@
 		F5B549B9284B486A0007051D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = GMD7EK7S94;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -291,7 +299,9 @@
 		F5B549BA284B486A0007051D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = GMD7EK7S94;
 				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

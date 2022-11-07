@@ -1,11 +1,15 @@
 import Foundation
 
-
 class ExitSubApplication: SubApplication {
-    override var command: String { "q" }
-    override var description: String { "Выйдти из приложения" }
+    init() {
+        super.init(
+            command: "q",
+            description: "Выйти из приложения",
+            wellcomeMessage: "Прощайте!"
+        )
+    }
     
-    override func run() {
+    override func runAction() -> SubApplicationActionResult {
         exit(0)
     }
 }

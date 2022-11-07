@@ -27,14 +27,8 @@ class Application {
         for application in subApplications {
             description += "\n\t\(application.command) - \(application.description)"
         }
-        return getDataFromUser(description: description)
+        return UserDataProvider.string(description)
     }
     
 }
-
-func getDataFromUser(description: String) -> String {
-    print(description)
-    return readLine() ?? ""
-}
-
 

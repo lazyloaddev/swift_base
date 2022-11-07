@@ -2,29 +2,30 @@ import Foundation
 
 class CalculatorSubApplication: SubApplication {
     
-    override var command: String { "c" }
-    override var description: String { "запустить калькулятор" }
-    
     private var history: [String] = []
     
-    override func run() {
-        print("Добро пожаловать в подпрограмму калькулятор.")
-        
-        while true {
-            let action = getDataFromUser(description: "Что вы хотите сделать: c - расчет примера. h - просмотр истории. q - перейти к выбору подпрограммы")
-            switch action {
-            case "c":
-                calculate()
-            case "q":
-                return
-            case "h":
-                showHistory()
-            default:
-                print("недопустимое действие")
-            }
-            print("")
-            print("---------------------------------------------------------")
-            print("")
+    init() {
+        super.init(
+            command: "c",
+            description: "запустить калькулятор",
+            wellcomeMessage: "Добро пожаловать в подпрограмму калькулятор."
+        )
+    }
+    
+    override func runAction() -> SubApplicationActionResult {
+        let action = UserDataProvider.string("Что вы хотите сделать: c - расчет примера. h - просмотр истории. q - перейти к выбору подпрограммы")
+        switch action {
+        case "c":
+            calculate()
+            return .resume
+        case "q":
+            return .exit
+        case "h":
+            showHistory()
+            return .resume
+        default:
+            print("недопустимое действие")
+            return .resume
         }
     }
     
@@ -35,23 +36,14 @@ class CalculatorSubApplication: SubApplication {
     }
 
     private func calculate() {
-        let operation = getDataFromUser(description: "Выберете операцию: +, -, * или /")
+        let operation = UserDataProvider.string("Выберете операцию: +, -, * или /")
         guard operation == "+" || operation == "-" || operation == "*" || operation == "/" else {
             print("Вы ввели не верную операцию.")
             return
         }
         
-        let firstNumber = getDataFromUser(description: "Введите целое число:")
-        guard let firstNumber = Int(firstNumber) else {
-            print("Вы ввели не верное число")
-            return
-        }
-        
-        let secondNumber = getDataFromUser(description: "Введите второе число:")
-        guard let secondNumber = Int(secondNumber) else {
-            print("Вы ввели не верное число")
-            return
-        }
+        let firstNumber = UserDataProvider.int("Введите целое число:")
+        let secondNumber = UserDataProvider.int("Введите второе число:")
         
         let example = String(firstNumber) + " " + operation + " " + String(secondNumber)
         print("Идет вычисление примера: " + example)

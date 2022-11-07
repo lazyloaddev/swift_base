@@ -1,9 +1,6 @@
 import Foundation
 
 class TicTackToeSubApplication: SubApplication {
-    override var command: String { "ttt" }
-    override var description: String { "запустить крестики нолики" }
-    
     private let symbols = (
         empty: " ",
         player1: "X",
@@ -11,72 +8,74 @@ class TicTackToeSubApplication: SubApplication {
     )
     private var field = [[String]]()
     
-    override func run() {
-        print("Добро пожаловать в подпрограмму крестики нолики")
-        while true {
-            let player1Name = getDataFromUser(description: "Введите имя первого игрока")
-            guard player1Name.count != 0 else {
-                print("Вы ввели неверное имя первого игрока")
-                continue
-            }
-            let player2Name = getDataFromUser(description: "Введите имя второго игрока")
-            guard player2Name.count != 0 else {
-                print("Вы ввели неверное имя второго игрока")
-                continue
-            }
-            let fieldSize = getDataFromUser(description: "Введите размер игрового поля")
-            guard let fieldSize = Int(fieldSize), fieldSize > 0 else {
-                print("Вы ввели неверный размер игрового поля")
-                continue
-            }
-            
-            field = [[String]]()
-            for _ in 0..<fieldSize {
-                var row = [String]()
-                for _ in 0..<fieldSize {
-                    row.append(symbols.empty)
-                }
-                field.append(row)
-            }
-            printField()
-            
-            var winnerSymbol: String?
-            while true {
-                playerTurn(playerName: player1Name, symbol: symbols.player1)
-                printField()
-                if let symbol = checkPlayerWon() {
-                    winnerSymbol = symbol
-                    break
-                }
-                if checkIfGameOver() {
-                    break
-                }
-                
-                playerTurn(playerName: player2Name, symbol: symbols.player2)
-                printField()
-                if let symbol = checkPlayerWon() {
-                    winnerSymbol = symbol
-                    break
-                }
-                if checkIfGameOver() {
-                    break
-                }
-            }
-            
-            if winnerSymbol == symbols.player1 {
-                print("Победил: \(player1Name)")
-            } else if winnerSymbol == symbols.player2 {
-                print("Победил: \(player2Name)")
-            } else {
-                print("Игра окончилась в ничью")
-            }
-            
-            let shouldStartNewGame = getDataFromUser(description: "Если хотите начать новую игру введите - да")
-            if shouldStartNewGame != "да" {
-                return
-            }
-            
+    init() {
+        super.init(
+            command: "ttt",
+            description: "запустить крестики нолики",
+            wellcomeMessage: "Добро пожаловать в подпрограмму крестики нолики"
+        )
+    }
+    
+    override func runAction() -> SubApplicationActionResult {
+        let player1Name = UserDataProvider.string("Введите имя первого игрока")
+        guard player1Name.count != 0 else {
+            print("Вы ввели неверное имя первого игрока")
+            return .resume
         }
+        let player2Name = UserDataProvider.string("Введите имя второго игрока")
+        guard player2Name.count != 0 else {
+            print("Вы ввели неверное имя второго игрока")
+            return .resume
+        }
+        let fieldSize = UserDataProvider.int("Введите размер игрового поля")
+        guard fieldSize > 0 else {
+            print("Вы ввели неверный размер игрового поля")
+            return .resume
+        }
+        
+        field = [[String]]()
+        for _ in 0..<fieldSize {
+            var row = [String]()
+            for _ in 0..<fieldSize {
+                row.append(symbols.empty)
+            }
+            field.append(row)
+        }
+        printField()
+        
+        var winnerSymbol: String?
+        while true {
+            playerTurn(playerName: player1Name, symbol: symbols.player1)
+            printField()
+            if let symbol = checkPlayerWon() {
+                winnerSymbol = symbol
+                break
+            }
+            if checkIfGameOver() {
+                break
+            }
+            
+            playerTurn(playerName: player2Name, symbol: symbols.player2)
+            printField()
+            if let symbol = checkPlayerWon() {
+                winnerSymbol = symbol
+                break
+            }
+            if checkIfGameOver() {
+                break
+            }
+        }
+        
+        if winnerSymbol == symbols.player1 {
+            print("Победил: \(player1Name)")
+        } else if winnerSymbol == symbols.player2 {
+            print("Победил: \(player2Name)")
+        } else {
+            print("Игра окончилась в ничью")
+        }
+        
+        let shouldStartNewGame = UserDataProvider.string("Если хотите начать новую игру введите - да")
+        return shouldStartNewGame == "да" ? .resume : .exit
     }
     
     private func checkPlayerWon() -> String? {
@@ -188,13 +187,13 @@ class TicTackToeSubApplication: SubApplication {
         let fieldSize = field.count
         while true {
             print("\(playerName) делает ход:")
-            let row = getDataFromUser(description: "Введите номер строки")
-            guard let row = Int(row), row > 0, row <= fieldSize else {
+            let row = UserDataProvider.int("Введите номер строки")
+            guard row > 0, row <= fieldSize else {
                 print("Введен неверный номер строки")
                 continue
             }
-            let column = getDataFromUser(description: "Введите номер столбца")
-            guard let column = Int(column), column > 0, column <= fieldSize else {
+            let column = UserDataProvider.int("Введите номер столбца")
+            guard column > 0, column <= fieldSize else {
                 print("Введен неверный номер столбца")
                 continue
             }
