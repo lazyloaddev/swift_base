@@ -3,12 +3,19 @@ import Foundation
 private protocol MathOperation {
     
     static var symbol: String { get }
+    var symbol: String { get }
     
     func calculate(firstNumber first: Int, secondNumber second: Int) -> Int?
     
 }
 
-private struct PlusOperation: MathOperation {
+extension MathOperation {
+    
+    var symbol: String { Self.symbol }
+    
+}
+
+private class PlusOperation: MathOperation {
     static let symbol = "+"
     
     func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
@@ -16,7 +23,7 @@ private struct PlusOperation: MathOperation {
     }
 }
 
-private struct MinusOperation: MathOperation {
+private class MinusOperation: MathOperation {
     static let symbol = "-"
     
     func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
@@ -24,7 +31,7 @@ private struct MinusOperation: MathOperation {
     }
 }
 
-private struct MultipleOperation: MathOperation {
+private class MultipleOperation: MathOperation {
     static let symbol = "*"
     
     func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
@@ -32,7 +39,7 @@ private struct MultipleOperation: MathOperation {
     }
 }
 
-private struct DivideOperation: MathOperation {
+private class DivideOperation: MathOperation {
     static let symbol = "/"
     
     func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
@@ -87,8 +94,12 @@ class CalculatorSubApplication: SubApplication {
     }
 
     private func calculate() {
-        let operation = UserDataProvider.string("Выберете операцию: +, -, * или /")
-        guard operation == "+" || operation == "-" || operation == "*" || operation == "/" else {
+        var selectionString = "Выберете операцию: "
+        for symbol in operations.keys.sorted() {
+            selectionString += "\(symbol), "
+        }
+        let operationSymbol = UserDataProvider.string(selectionString)
+        guard let operation = operations[operationSymbol] else {
             print("Вы ввели не верную операцию.")
             return
         }
@@ -96,34 +107,14 @@ class CalculatorSubApplication: SubApplication {
         let firstNumber = UserDataProvider.int("Введите целое число:")
         let secondNumber = UserDataProvider.int("Введите второе число:")
         
-        let example = String(firstNumber) + " " + operation + " " + String(secondNumber)
+        let example = String(firstNumber) + " " + operation.symbol + " " + String(secondNumber)
         print("Идет вычисление примера: " + example)
         
-        let result = calculate(operation: operation, firstNumber: firstNumber, secondNumber: secondNumber)
+        let result = operation.calculate(firstNumber: firstNumber, secondNumber: secondNumber)
         guard let result = result else { return }
 
         showResult(result)
         history.append(example + " = " + String(result))
-    }
-
-
-    private func calculate(operation: String, firstNumber first: Int, secondNumber second: Int) -> Int? {
-        switch operation {
-        case "+":
-            return first + second
-        case "-":
-            return first - second
-        case "*":
-            return first * second
-        case "/" where second == 0:
-            print("Деление на 0 является недопустимой операцией")
-            return nil
-        case "/":
-            return first / second
-        default:
-            print("Вы ввели не верную операцию.")
-            return nil
-        }
     }
 
     private func showResult(_ result: Int) {
