@@ -1,6 +1,57 @@
 import Foundation
 
+private protocol MathOperation {
+    
+    static var symbol: String { get }
+    
+    func calculate(firstNumber first: Int, secondNumber second: Int) -> Int?
+    
+}
+
+private struct PlusOperation: MathOperation {
+    static let symbol = "+"
+    
+    func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
+        first + second
+    }
+}
+
+private struct MinusOperation: MathOperation {
+    static let symbol = "-"
+    
+    func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
+        first - second
+    }
+}
+
+private struct MultipleOperation: MathOperation {
+    static let symbol = "*"
+    
+    func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
+        first * second
+    }
+}
+
+private struct DivideOperation: MathOperation {
+    static let symbol = "/"
+    
+    func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
+        guard second != 0 else {
+            print("Деление на 0 является недопустимой операцией")
+            return nil
+        }
+        return first / second
+    }
+}
+
 class CalculatorSubApplication: SubApplication {
+    
+    private let operations: [String: MathOperation] = [
+        PlusOperation.symbol: PlusOperation(),
+        MinusOperation.symbol: MinusOperation(),
+        MultipleOperation.symbol: MultipleOperation(),
+        DivideOperation.symbol: DivideOperation(),
+    ]
     
     private var history: [String] = []
     
