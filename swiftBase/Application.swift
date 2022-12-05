@@ -1,180 +1,115 @@
-
-//struct Some<T> {
-//    let data: T
-//
-//    func copy() -> Some {
-//        return Some(data: data)
-//    }
-//}
-
-protocol Container {
-    associatedtype T
-    var value: T { get }
-    
-    init(value: T)
+struct Email {
+    let value: String
 }
 
-struct Some: Container {
-    var value: Int
+extension Email: ExpressibleByStringLiteral {
     
-    
-}
-
-struct Example<C> where C: Container, C.T == Int {
-    let a: C
-    let b: C
-    let c: [C]
-    
-    func sum(a: C, b: C) -> C {
-        let result = a.value + b.value
-        return C(value: result)
+    init(stringLiteral: String) {
+        self.init(value: stringLiteral)
     }
+    
 }
+
 
 @main
 struct Application {
     static func main() throws {
-        
+        send(toEmail: "uber_destroyer_2017@yandex.ru")
     }
 }
 
+func send(toEmail email: Email) {
+    
+}
 /*
- protocol Container {
-     associatedtype T
-     var value: T { get }
+ struct Person {
+     let name: String
+     let surname: String
+     let age: Int
+     let children: [String]
  }
 
- struct Some: Container {
-     var value: Int
+ extension Person: Hashable {
+     static func == (lhs: Person, rhs: Person) -> Bool {
+         return lhs.name == rhs.name && lhs.surname == rhs.surname
+     }
+
+     func hash(into hasher: inout Hasher) {
+         hasher.combine(name)
+         hasher.combine(surname)
+     }
  }
 
- struct Example {
-     let a: any Container
-     let b: any Container
-     let c: [any Container]
-     
-     func sum(a: any Container, b: any Container) -> any Container {
-         return Some(value: 1)
+ @main
+ struct Application {
+     static func main() throws {
+         let persons = Set([
+             Person(name: "Иван", surname: "Иванов", age: 27, children: ["Никита", "Глафира"]),
+             Person(name: "Кузьма", surname: "Кузьмин", age: 55, children: ["Марья", "Семен"]),
+             Person(name: "Сидор", surname: "Сидоров", age: 87, children: ["Прасковья", "Игнат"]),
+         ])
+         let person = Person(name: "Иван", surname: "Иванов", age: 0, children: []);
+         print(persons.contains(person))
      }
  }
  */
 /*
- struct Container<T> {
-     let value: T
- }
+ Ф.И.О: Иванов Иван
+ Возраст: 27 лет
+ Дети:
+     - Никита
+     - Глафира
 
- struct Example {
-     let a: Container<Int>
-     let b: Container<Int>
-     let c: [Container<Int>]
+ ---------
+ Ф.И.О: Иванов Иван
+ Возраст: 27 лет
+ Дети:
+     - Никита
+     - Глафира
+ */
+
+/*
+ class Person {
+     let name: String
+     let surname: String
+     let age: Int
+     let children: [String]
      
-     func sum(a: Container<Int>, b: Container<Int>) -> Container<Int> {
-         let result = a.value + b.value
-         return Container<Int>(value: result)
+     init(name: String, surname: String, age: Int, children: [String]) {
+         self.name = name
+         self.surname = surname
+         self.age = age
+         self.children = children
      }
  }
- */
-/*
- protocol IntContainer {
-     var value: Int { get }
- }
 
- struct Some: IntContainer {
-     var value: Int
- }
-
- struct Example {
-     let a: IntContainer
-     let b: IntContainer
-     let c: [IntContainer]
+ extension Person: CustomStringConvertible {
      
-     func sum(a: IntContainer, b: IntContainer) -> IntContainer {
-         let result = a.value + b.value
-         return Some(value: result)
+     var description: String {
+         var description =
+         """
+         Ф.И.О: \(surname) \(name)
+         Возраст: \(age) лет
+         Дети:
+         """
+         description += "\n"
+         for child in children {
+             description += "\t- \(child)\n"
+         }
+         return description
+     }
+     
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let person = Person(name: "Иван", surname: "Иванов", age: 27, children: ["Никита", "Глафира"])
+         let string = "\(person)"
+         print(string)
+         print("---------")
+         print(person)
      }
  }
- */
-/*
- struct Container<T> {
-     let value: T
- }
 
- struct Example {
-     let a: Container
-     let b: Container
-     let c: [Container]
-     
-     func sum(a: Container, b: Container) -> Container {
-         let result = a.value + b.value
-         return Container(value: result)
-     }
- }
- */
-/*
- struct Example {
-     let a: Int
-     let b: Int
-     let c: [Int]
-     
-     func sum(a: Int, b: Int) -> Int {
-         a + b
-     }
- }
- */
-/*
- protocol ContainerForData {
-     associatedtype T: Numeric
-     
-     var data: T { get }
-     
-     func copy() -> Self
- }
-
- struct Some: ContainerForData {
-     let data: Int
-     
-     func copy() -> Some {
-         return Some(data: data)
-     }
- }
- */
-/*
- protocol ContainerForData {
-     associatedtype T: Numeric
-     
-     var data: T { get }
-     
- }
-
- struct Some: ContainerForData {
-     let data: Int
- }
- */
-
-/*
- protocol ContainerForData {
-     associatedtype T
-     
-     var data: T { get }
-     
- }
-
- struct Some: ContainerForData {
-     let data: Int
- }
- */
-
-/*
- protocol ContainerForData {
-     associatedtype T
-     
-     var data: T { get }
-     
- }
-
- struct Some: ContainerForData {
-     typealias T = Int
-     
-     let data: Int
- }
  */
