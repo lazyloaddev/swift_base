@@ -1,11 +1,17 @@
 import Foundation
 
+private enum CalculatorError: Error {
+    case divisionByZero
+    case incorrectOperation
+    case incorrectAction
+}
+
 private protocol MathOperation {
     
     static var symbol: String { get }
     var symbol: String { get }
     
-    func calculate(firstNumber first: Int, secondNumber second: Int) -> Int?
+    func calculate(firstNumber first: Int, secondNumber second: Int) throws -> Int
     
 }
 
@@ -18,7 +24,7 @@ extension MathOperation {
 private class PlusOperation: MathOperation {
     static let symbol = "+"
     
-    func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
+    func calculate(firstNumber first: Int, secondNumber second: Int) throws -> Int {
         first + second
     }
 }
@@ -26,7 +32,7 @@ private class PlusOperation: MathOperation {
 private class MinusOperation: MathOperation {
     static let symbol = "-"
     
-    func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
+    func calculate(firstNumber first: Int, secondNumber second: Int) throws -> Int {
         first - second
     }
 }
@@ -34,7 +40,7 @@ private class MinusOperation: MathOperation {
 private class MultipleOperation: MathOperation {
     static let symbol = "*"
     
-    func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
+    func calculate(firstNumber first: Int, secondNumber second: Int) throws -> Int {
         first * second
     }
 }
@@ -42,10 +48,9 @@ private class MultipleOperation: MathOperation {
 private class DivideOperation: MathOperation {
     static let symbol = "/"
     
-    func calculate(firstNumber first: Int, secondNumber second: Int) -> Int? {
+    func calculate(firstNumber first: Int, secondNumber second: Int) throws -> Int {
         guard second != 0 else {
-            print("Деление на 0 является недопустимой операцией")
-            return nil
+            throw CalculatorError.divisionByZero
         }
         return first / second
     }
@@ -71,10 +76,25 @@ class CalculatorSubApplication: SubApplication {
     }
     
     override func runAction() -> SubApplicationActionResult {
+        do {
+            return try runCalculator()
+        } catch CalculatorError.divisionByZero {
+            print("Деление на 0 является недопустимой операцией")
+        } catch CalculatorError.incorrectOperation {
+            print("Неверная операция")
+        } catch CalculatorError.incorrectAction {
+            print("Неверное действие")
+        } catch {
+            print("Неизвестная ошибка, потоврите операцию еще раз")
+        }
+        return .resume
+    }
+    
+    private func runCalculator() throws -> SubApplicationActionResult {
         let action = UserDataProvider.string("Что вы хотите сделать: c - расчет примера. h - просмотр истории. q - перейти к выбору подпрограммы")
         switch action {
         case "c":
-            calculate()
+            try calculate()
             return .resume
         case "q":
             return .exit
@@ -82,8 +102,7 @@ class CalculatorSubApplication: SubApplication {
             showHistory()
             return .resume
         default:
-            print("недопустимое действие")
-            return .resume
+            throw CalculatorError.incorrectAction
         }
     }
     
@@ -93,15 +112,14 @@ class CalculatorSubApplication: SubApplication {
         }
     }
 
-    private func calculate() {
+    private func calculate() throws {
         var selectionString = "Выберете операцию: "
         for symbol in operations.keys.sorted() {
             selectionString += "\(symbol), "
         }
         let operationSymbol = UserDataProvider.string(selectionString)
         guard let operation = operations[operationSymbol] else {
-            print("Вы ввели не верную операцию.")
-            return
+            throw CalculatorError.incorrectOperation
         }
         
         let firstNumber = UserDataProvider.int("Введите целое число:")
@@ -110,8 +128,7 @@ class CalculatorSubApplication: SubApplication {
         let example = String(firstNumber) + " " + operation.symbol + " " + String(secondNumber)
         print("Идет вычисление примера: " + example)
         
-        let result = operation.calculate(firstNumber: firstNumber, secondNumber: secondNumber)
-        guard let result = result else { return }
+        let result = try operation.calculate(firstNumber: firstNumber, secondNumber: secondNumber)
 
         showResult(result)
         history.append(example + " = " + String(result))

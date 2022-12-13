@@ -1,5 +1,16 @@
 import Foundation
 
+private enum TicTackToeError: Error {
+    case incorrectPlayerName(Int)
+    case emptyFiled
+}
+
+private enum TicTackToeFieldError: Error {
+    case rowOutOfBounds
+    case columnOutOfBounds
+    case turnAlreadyComplted
+}
+
 class TicTackToeSubApplication: SubApplication {
     private var field = TicTackToeField(size: 0)
     
@@ -12,23 +23,31 @@ class TicTackToeSubApplication: SubApplication {
     }
     
     override func runAction() -> SubApplicationActionResult {
+        do {
+            return try runTicTackToe()
+        } catch TicTackToeError.incorrectPlayerName(let player) {
+            let player = player == 1 ? "первого" : "второго"
+            print("Вы ввели неверное имя \(player) игрока")
+        } catch TicTackToeError.emptyFiled {
+            print("Вы ввели неверный размер игрового поля")
+        } catch {
+            print("Неизвестная ошибка, потоврите операцию еще раз")
+        }
+        return .resume
+    }
+    
+    private func runTicTackToe() throws -> SubApplicationActionResult {
         let player1Name = UserDataProvider.string("Введите имя первого игрока")
         guard player1Name.count != 0 else {
-            print("Вы ввели неверное имя первого игрока")
-            return .resume
+            throw TicTackToeError.incorrectPlayerName(1)
         }
         let player1 = TicTackToePlayer(name: player1Name, symbol: .x)
         let player2Name = UserDataProvider.string("Введите имя второго игрока")
         guard player2Name.count != 0 else {
-            print("Вы ввели неверное имя второго игрока")
-            return .resume
+            throw TicTackToeError.incorrectPlayerName(2)
         }
         let player2 = TicTackToePlayer(name: player2Name, symbol: .y)
         let fieldSize = UserDataProvider.int("Введите размер игрового поля")
-        guard fieldSize > 0 else {
-            print("Вы ввели неверный размер игрового поля")
-            return .resume
-        }
         
         field = TicTackToeField(size: fieldSize)
         field.printToConsole()
@@ -70,19 +89,20 @@ class TicTackToeSubApplication: SubApplication {
     
     private func playerTurn(player: TicTackToePlayer) {
         while true {
-            print("\(player.name) делает ход:")
-            let row = UserDataProvider.int("Введите номер строки")
-            let column = UserDataProvider.int("Введите номер столбца")
-            let result = field.set(symbol: player.symbol, row: row, column: column)
-            switch result {
-            case.incorrectRow:
-                print("Введен неверный номер строки")
-            case .incorrectColumn:
-                print("Введен неверный номер столбца")
-            case .turnAlreadyComplted:
-                print("Такой ход уже был")
-            case .success:
+            do {
+                print("\(player.name) делает ход:")
+                let row = UserDataProvider.int("Введите номер строки")
+                let column = UserDataProvider.int("Введите номер столбца")
+                try field.set(symbol: player.symbol, row: row, column: column)
                 return
+            } catch TicTackToeFieldError.rowOutOfBounds {
+                print("Введен неверный номер строки")
+            } catch TicTackToeFieldError.columnOutOfBounds {
+                print("Введен неверный номер столбца")
+            } catch TicTackToeFieldError.turnAlreadyComplted {
+                print("Такой ход уже был")
+            } catch {
+                print("Произошла неизвестная ошибка, повторите свой ход")
             }
         }
     }
@@ -93,13 +113,6 @@ private enum TicTackToeFieldSymbol: String {
     case empty = " "
     case x = "X"
     case y = "Y"
-}
-
-private enum TicTackToeFieldSetResult {
-    case incorrectRow
-    case incorrectColumn
-    case turnAlreadyComplted
-    case success
 }
 
 private struct TicTackToePlayer {
@@ -138,31 +151,31 @@ private struct TicTackToeField {
         print(fieldForamtedString)
     }
     
-    subscript(row: Int, column: Int) -> TicTackToeFieldSymbol? {
-        guard
-            row > 0, row <= field.count,
-            column > 0, column <= field.count
-        else { return nil }
+    subscript(row: Int, column: Int) -> TicTackToeFieldSymbol {
+        get throws {
+            guard row > 0, row <= field.count else { throw TicTackToeFieldError.rowOutOfBounds }
+            
+            guard column > 0, column <= field.count else { throw TicTackToeFieldError.columnOutOfBounds }
+            
+            let rowInArray = row - 1
+            let columnInArray = column - 1
+            
+            return field[rowInArray][columnInArray]
+        }
         
-        let rowInArray = row - 1
-        let columnInArray = column - 1
-        
-        return field[rowInArray][columnInArray]
     }
     
-    mutating func set(symbol: TicTackToeFieldSymbol, row: Int, column: Int) -> TicTackToeFieldSetResult {
-        guard row > 0, row <= field.count else { return .incorrectRow }
-        guard column > 0, column <= field.count else { return .incorrectColumn }
+    mutating func set(symbol: TicTackToeFieldSymbol, row: Int, column: Int) throws {
+        guard row > 0, row <= field.count else { throw TicTackToeFieldError.rowOutOfBounds }
+        guard column > 0, column <= field.count else { throw TicTackToeFieldError.columnOutOfBounds }
         let rowInArray = row - 1
         let columnInArray = column - 1
         
         guard field[rowInArray][columnInArray] == .empty else {
-            return .turnAlreadyComplted
+            throw TicTackToeFieldError.turnAlreadyComplted
         }
         
         field[rowInArray][columnInArray] = symbol
-        
-        return .success
     }
     
     func checkFilled() -> TicTackToeFieldSymbol? {
