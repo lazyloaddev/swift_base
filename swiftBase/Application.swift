@@ -1,603 +1,566 @@
-import Foundation
-
-func someFunc() throws -> Int {
-    throw SomeError(date: Date.now, file: #file, line: #line)
-}
-
-enum SomeEnumError: Error {
-    case some
-    case someWithData(String)
-}
-
-struct SomeError: Error {
-    let date: Date
-    let file: String
-    let line: Int
+func some(closure: (Int, Int) -> Int) {
+    let result = closure(2, 3)
+    print(result)
 }
 
 @main
 struct Application {
     static func main() throws {
-        do {
-            let value = try someFunc()
-            print(value)
-        } catch let error as SomeError {
-            print("Ошибка \(error)")
-        } catch SomeEnumError.some {
-            print("Ошибка some")
-        } catch SomeEnumError.someWithData(let string) {
-            print("Ошибка \(string)")
-        } catch {
-            print("Ошибка \(error)")
-        }
-        
+some { $0 + $1 }
     }
 }
-
-func someFunc4() throws -> Int {
-    let result = try someFunc3()
-    return result + 4
-}
-
-func someFunc3() throws -> Int {
-    let result = try someFunc2()
-    return result + 3
-}
-
-func someFunc2() throws -> Int {
-    let result = try someFunc()
-    return result + 2
-}
-
 /*
- @main
- struct Application {
-     static func main() throws {
-         do {
-             let value = try someFunc()
-             print(value)
-         } catch let error as SomeError {
-             print("Ошибка \(error)")
-         }
-         
-     }
- }
- */
-/*
- struct SomeError: Error {
-     let date: Date
-     let file: String
-     let line: Int
+ func some(closure: (Int, Int) -> Int) {
+     let result = closure(2, 3)
+     print(result)
  }
 
  @main
  struct Application {
      static func main() throws {
-         do {
-             let value = try someFunc()
-             print(value)
-         } catch is SomeError {
-             print("Ошибка")
-         }
-         
-     }
- }
-
- */
-
-/*
- enum SomeEnumError: Error {
-     case some
-     case someWithData(String)
- }
-
- @main
- struct Application {
-     static func main() throws {
-         do {
-             let value = try someFunc()
-             print(value)
-         } catch SomeEnumError.someWithData(let string) {
-             print("Ошибка \(string)")
-         }
-         
+         let a: (Int, Int) -> Int = { $0 + $1 }
+         some(closure: a)
      }
  }
  */
 /*
- do {
-     let value = try someFunc()
-     print(value)
- } catch SomeEnumError.some {
-     print("Ошибка")
- }
- */
-/*
- do {
-     let value = try someFunc()
-     print(value)
- } catch let error {
-     print(error)
- }
- */
-
-/*
- func someFunc() throws -> Int {
-     throw SomeError(date: Date.now, file: #file, line: #line)
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let value = try? someFunc()
-         print(value ?? 0)
-         
-     }
- }
- */
-
-/*
- import Foundation
-
- struct SomeError: Error {
-     let date: Date
-     let file: String
-     let line: Int
- }
-
- func someFunc() throws -> Int {
-     throw SomeError(date: Date.now, file: #file, line: #line)
- }
-
- @main
- struct Application {
-     static func main() throws {
-         do {
-             let value = try someFunc()
-             print(value)
-         } catch let error as SomeError {
-             print(error.date)
-             print(error.file)
-             print(error.line)
-         }
-         
-     }
- }
- */
-/*
- enum SomeError: Error {
-     case first
- }
-
- @main
- struct Application {
-     static func main() throws {
-         do {
-             let value = try someFunc4()
-             print(value)
-         } catch (let error) {
-             print(error)
-         }
-         
-     }
- }
-
- func someFunc4() throws -> Int {
-     let result = try someFunc3()
-     return result + 4
- }
-
- func someFunc3() throws -> Int {
-     let result = try someFunc2()
-     return result + 3
- }
-
- func someFunc2() throws -> Int {
-     let result = try someFunc()
-     return result + 2
- }
-
- func someFunc() throws -> Int {
-     throw SomeError.first
- }
- */
-/*
- enum SomeError: Error {
-     case first
- }
-
- @main
- struct Application {
-     static func main() throws {
-         do {
-             let value = try someFunc4()
-             print(value)
-         } catch (let error) {
-             print(error)
-         }
-         
-     }
- }
-
- func someFunc4() throws -> Int {
-     let result = try someFunc3()
-     return result + 4
- }
-
- func someFunc3() throws -> Int {
-     let result = try someFunc2()
-     return result + 3
- }
-
- func someFunc2() throws -> Int {
-     let result = try someFunc()
-     return result + 2
- }
-
- func someFunc() throws -> Int {
-     return 1
- }
- */
-/*
- @main
- struct Application {
-     static func main() throws {
-         do {
-             let value = try someFunc4()
-             print(value)
-         } catch (let error) {
-             print(error)
-         }
-         
-     }
- }
-
- func someFunc4() throws -> Int {
-     try someFunc3()
- }
-
- func someFunc3()  -> Int {
-     do {
-         return try someFunc2()
-     } catch (let error) {
-         print(error)
-         return 0
-     }
- }
-
- func someFunc2() throws -> Int {
-     try someFunc()
- }
-
- func someFunc() throws -> Int {
-     throw SomeError.first
- }
- */
-/*
- enum SomeError: Error {
-     case first
- }
-
-
- func someFunc() throws -> Int {
-     throw SomeError.first
- }
-
- func someFunc2() throws -> Int {
-     try someFunc()
- }
-
- func someFunc3() throws -> Int {
-     try someFunc2()
- }
-
- func someFunc4() throws -> Int {
-     try someFunc3()
- }
-
-
- @main
- struct Application {
-     static func main() throws {
-         do {
-             let value = try someFunc4()
-             print(value)
-         } catch (let error) {
-             print(error)
-         }
-         
-     }
- }
- */
-/*
- do {
-     throw SomeError.first
- } catch (let error) {
-     print(error)
- }
- */
-/*
- enum SomeError: Error {
-     case first
- }
-
-
- func someFunc() throws -> Int {
-     throw SomeError.first
- }
-
- @main
- struct Application {
-     static func main() throws {
-         
-         do {
-             let value = try someFunc()
-             print(value)
-         } catch (let error) {
-             print(error)
-         }
-         
-     }
- }
- */
-
-/*
- enum ParseError: Error {
-     case ExpectedInt
- }
-
- enum CalcualtorError: Error {
-     case EmptyUserInput
-     case IncorrectTypeFromUserInput(ParseError)
-     case IncorrectOperation
-     case DivisionByZero
- }
-
- func getStringFromUser() throws -> String {
-     let value = readLine()
-     guard let string = value else {
-         throw CalcualtorError.EmptyUserInput
-     }
-     return string
- }
-
- func getIntFormUser() throws -> Int {
-     let string = try getStringFromUser()
+ class A {
+     var closure: ((Int, Int) -> Int)?
      
-     guard let int = Int(string) else {
-         throw CalcualtorError.IncorrectTypeFromUserInput(.ExpectedInt)
+     func some(closure: ((Int, Int) -> Int)?) {
+         self.closure = closure
      }
-     
-     return int
  }
-
- func getOperationFormUser() throws -> String {
-     let string = try getStringFromUser()
+ class A {
+     var closure: ((Int, Int) -> Int)?
      
-     guard string == "/" else {
-         throw CalcualtorError.IncorrectOperation
+     func some(closure: @escaping (Int, Int) -> Int) {
+         self.closure = closure
      }
-     
-     return string
  }
-
- func divide() throws -> Int {
-     let a = try getIntFormUser()
-     let b = try getIntFormUser()
+ class A {
+     var closure: ((Int, Int) -> Int)?
      
-     guard b != 0 else {
-         throw CalcualtorError.DivisionByZero
+     func some(closure: (Int, Int) -> Int) {
+         self.closure = closure
      }
-     
-     return a / b
  }
+ */
 
-
- func calculate(operation: String) throws -> Int {
-     switch operation {
-     case "/":
-         return try divide()
-     default:
-         throw CalcualtorError.IncorrectOperation
+/*
+ class A {
+     var closure: ((Int, Int) -> Int)?
+     
+     func some(closure: (Int, Int) -> Int) {
+         closure(1, 2)
      }
  }
 
  @main
  struct Application {
      static func main() throws {
-         do {
-             let operation = try getOperationFormUser()
-             let result = try calculate(operation: operation)
-             print(result)
-         } catch CalcualtorError.EmptyUserInput {
-             print("Вы не ввели значение")
-         } catch CalcualtorError.IncorrectTypeFromUserInput(let error) {
-             switch error {
-             case .ExpectedInt:
-                 print("Вы ввели не число")
+         let a = A()
+         a.some(closure: {  $0 + $1 })
+     }
+ }
+ */
+
+/*
+ class A {
+     var closure: ((Int, Int) -> Int)?
+     
+     init(closure: ((Int, Int) -> Int)?) {
+         self.closure = closure
+     }
+ }
+ */
+
+/*
+ class A {
+     var closure: (Int, Int) -> Int?
+     
+     init(closure: (Int, Int) -> Int?) {
+         self.closure = closure
+     }
+ }
+ */
+/*
+ class A {
+     var closure: (Int, Int) -> Int
+     
+     init(closure: (Int, Int) -> Int) {
+         self.closure = closure
+     }
+ }
+ */
+/*
+ class A {
+     
+     var closure: (() -> Void)?
+     
+     deinit {
+         print("Уничтожен из памяти")
+     }
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         some()
+     }
+ }
+
+ func some() {
+     let a = A()
+     a.closure = { [weak a] in print(a) }
+ }
+ */
+
+/*
+ class A {
+     
+     var closure: (() -> Void)?
+     
+     deinit {
+         print("Уничтожен из памяти")
+     }
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         some()
+     }
+ }
+
+ func some() {
+     let a = A()
+     a.closure = { print(a) }
+ }
+ */
+/*
+ @main
+ struct Application {
+     static func main() throws {
+         var c = 15
+         let closure: (Int, Int) -> Int = { [c] a, b in
+             a + b + c
+         }
+         c = 0
+         some(closure: closure)
+     }
+ }
+
+ func some(closure: (Int, Int) -> Int) {
+     let a = 2
+     let b = 3
+     print(closure(a, b))
+ }
+ */
+/*
+ @main
+ struct Application {
+     static func main() throws {
+         var c = 15
+         let closure: (Int, Int) -> Int = {
+             c = 100
+             return $0 + $1 + c
+         }
+         c = 0
+         some(closure: closure)
+         print(c)
+     }
+ }
+
+ func some(closure: (Int, Int) -> Int) {
+     let a = 2
+     let b = 3
+     print(closure(a, b))
+ }
+
+ */
+/*
+ @main
+ struct Application {
+     static func main() throws {
+         var c = 15
+         let closure: (Int, Int) -> Int = {
+             $0 + $1 + c
+         }
+         c = 0
+         some(closure: closure)
+     }
+ }
+
+ func some(closure: (Int, Int) -> Int) {
+     let a = 2
+     let b = 3
+     print(closure(a, b))
+ }
+ */
+/*
+ @main
+ struct Application {
+     static func main() throws {
+         let c = 15
+         let closure: (Int, Int) -> Int = {
+             $0 + $1 + c
+         }
+         some(closure: closure)
+     }
+ }
+
+ func some(closure: (Int, Int) -> Int) {
+     let a = 2
+     let b = 3
+     print(closure(a, b))
+ }
+ */
+
+/*
+ struct Summ {
+     
+     func perform(_ a: Int, _ b: Int) -> Int {
+         a + b
+     }
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let closure = Summ()
+         some(closure: closure)
+     }
+ }
+
+ func some(closure: Summ) {
+     let a = 2
+     let b = 3
+     print(closure.perform(a, b))
+ }
+ */
+/*
+ let closure = {
+     $0 + $1
+ }
+ let closure: (Int, Int) -> Int = {
+     return $0 + $1
+ }
+ let closure: (Int, Int) -> Int = { a, b in
+     return a + b
+ }
+ let closure: (Int, Int) -> Int = { (a, b) in
+     return a + b
+ }
+ let closure: (Int, Int) -> Int = { (a: Int, b: Int) in
+     return a + b
+ }
+ let closure = { (a: Int, b: Int) -> Int in
+     return a + b
+ }
+ */
+/*
+ let closure = { print("hello") }
+ let closure: () -> Void = { print("hello") }
+ let closure = { () -> Void in print("hello") }
+ */
+/*
+ let closure: () -> Void = { () -> Void in print("hello") }
+ */
+
+/*
+ let closure: (Int, Int) -> Int = { (a: Int, b: Int) -> Int in
+     return a + b
+ }
+ */
+/*
+ let closure: (Int, Int) -> Int = { (a: Int, b: Int) -> Int in return a + b }
+ let result = closure(1, 3)
+ print(result)
+ */
+/*
+ let closure: () -> Void = { print("hello") }
+ */
+/*
+ let a = Closure()
+ a.perform()
+ */
+
+/*
+ func some(closure: Closure) {
+     
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let a = Closure()
+         some(closure: a)
+     }
+ }
+ */
+
+/*
+ let a = Closure()
+ let b = a
+ */
+/*
+ struct Closure {
+     func perform() {
+         print("hello")
+     }
+ }
+ */
+/*
+ let a = { print("hello") }
+ a()
+ */
+/*
+ func some(closure: () -> Void) {
+     
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let a = { print("hello") }
+         some(closure: a)
+     }
+ }
+ */
+/*
+ let a = { print("hello") }
+ let b = a
+ */
+/*
+ { print("hello") }
+ */
+
+/*
+ func some() {
+     print("hello")
+ }
+
+
+ @main
+ struct Application {
+     static func main() throws {
+         some()
+     }
+ }
+ */
+
+/*
+ struct Person {
+     let name: String
+     let age: Int
+ }
+
+
+ @main
+ struct Application {
+     static func main() throws {
+         let persons = [
+             Person(name: "Иван", age: 27),
+             Person(name: "Александр", age: 40),
+             Person(name: "Евдоким", age: 78),
+         ]
+         let personsToOld = persons.sorted(by: { $0.age < $1.age })
+         let personsToYong = persons.sorted(by: { $0.age > $1.age })
+         let personsByName = persons.sorted(by: { $0.name < $1.name })
+         
+         print(personsToOld)
+         print(personsToYong)
+         print(personsByName)
+     }
+ }
+ */
+
+/*
+ struct Person {
+     let name: String
+     let age: Int
+ }
+
+
+ func sort(persons: [Person], compare: (Person, Person) -> Bool) -> [Person] {
+     var persons = persons
+     for i in 0..<persons.count - 1 {
+         for j in (i + 1)..<persons.count {
+             if compare(persons[i], persons[j]) {
+                 let tmp = persons[i]
+                 persons[i] = persons[j]
+                 persons[j] = tmp
              }
-         } catch CalcualtorError.IncorrectOperation {
-             print("Вы ввели не верную операцию")
-         } catch CalcualtorError.DivisionByZero {
-             print("На ноль делить нельзя")
          }
-         
      }
- }
- */
-
-/*
- enum ParseError: Error {
-     case ExpectedInt
- }
-
- enum CalcualtorError: Error {
-     case EmptyUserInput
-     case IncorrectTypeFromUserInput(ParseError)
-     case IncorrectOperation
-     case DivisionByZero
-     
- }
-
- func getStringFromUser() throws -> String {
-     let value = readLine()
-     guard let string = value else {
-         throw CalcualtorError.EmptyUserInput
-     }
-     return string
- }
-
- func getIntFormUser() throws -> Int {
-     let string = try getStringFromUser()
-     
-     guard let int = Int(string) else {
-         throw CalcualtorError.IncorrectTypeFromUserInput(.ExpectedInt)
-     }
-     
-     return int
- }
-
- func getOperationFormUser() throws -> String {
-     let string = try getStringFromUser()
-     
-     guard string == "/" else {
-         throw CalcualtorError.IncorrectOperation
-     }
-     
-     return string
- }
-
- func divide() throws -> Int {
-     let a = try getIntFormUser()
-     let b = try getIntFormUser()
-     
-     guard b != 0 else {
-         throw CalcualtorError.DivisionByZero
-     }
-     
-     return a / b
- }
-
-
- func calculate(operation: String) throws -> Int {
-     switch operation {
-     case "/":
-         return try divide()
-     default:
-         throw CalcualtorError.IncorrectOperation
-     }
+     return persons
  }
 
  @main
  struct Application {
      static func main() throws {
-         do {
-             let operation = try getOperationFormUser()
-             let result = try calculate(operation: operation)
-             print(result)
-         } catch CalcualtorError.EmptyUserInput {
-             print("Вы не ввели значение")
-         } catch CalcualtorError.IncorrectTypeFromUserInput(let error) {
-             switch error {
-             case .ExpectedInt:
-                 print("Вы ввели не число")
+         let persons = [
+             Person(name: "Иван", age: 27),
+             Person(name: "Александр", age: 40),
+             Person(name: "Евдоким", age: 78),
+         ]
+         let personsToOld = sort(persons: persons, compare: { $0.age > $1.age })
+         let personsToYong = sort(persons: persons, compare: { $0.age < $1.age })
+         let personsByName = sort(persons: persons, compare: { $0.name > $1.name })
+         
+         print(personsToOld)
+         print(personsToYong)
+         print(personsByName)
+     }
+ }
+
+ */
+
+/*
+ struct Person {
+     let name: String
+     let age: Int
+ }
+
+ protocol CompareOperation {
+     
+     func compare(_ a: Person, _ b: Person) -> Bool
+     
+ }
+
+ class ToOldCompareOperation: CompareOperation {
+     func compare(_ a: Person, _ b: Person) -> Bool {
+         a.age > b.age
+     }
+ }
+
+ class ToYongCompareOperation: CompareOperation {
+     func compare(_ a: Person, _ b: Person) -> Bool {
+         a.age < b.age
+     }
+ }
+
+ class ByNameCompareOperation: CompareOperation {
+     func compare(_ a: Person, _ b: Person) -> Bool {
+         a.name > b.name
+     }
+ }
+
+ func sort(persons: [Person], operation: CompareOperation) -> [Person] {
+     var persons = persons
+     for i in 0..<persons.count - 1 {
+         for j in (i + 1)..<persons.count {
+             if operation.compare(persons[i], persons[j]) {
+                 let tmp = persons[i]
+                 persons[i] = persons[j]
+                 persons[j] = tmp
              }
-         } catch CalcualtorError.IncorrectOperation {
-             print("Вы ввели не верную операцию")
-         } catch CalcualtorError.DivisionByZero {
-             print("На ноль делить нельзя")
          }
-         
      }
- }
- */
-
-/*
- func getStringFromUser() -> String? {
-     let value = readLine()
-     guard let string = value else {
-         print("Вы не ввели значение")
-         return nil
-     }
-     return string
- }
-
- func getIntFormUser() -> Int? {
-     let string = getStringFromUser()
-     
-     guard let string = string else {
-         return nil
-     }
-     
-     guard let int = Int(string) else {
-         print("Вы ввели не число")
-         return nil
-     }
-     
-     return int
- }
-
- func getOperationFormUser() -> String? {
-     let string = getStringFromUser()
-     
-     guard let string = string else {
-         return nil
-     }
-     guard string == "/" else {
-         print("Вы ввели не верную операцию")
-         return nil
-     }
-     
-     return string
- }
-
- func divide() -> Int? {
-     let a = getIntFormUser()
-     let b = getIntFormUser()
-     
-     guard let a = a else {
-         print("Вы не ввели число")
-         return nil
-     }
-     
-     guard let b = b else {
-         print("Вы не ввели число")
-         return nil
-     }
-     
-     guard b != 0 else {
-         print("На ноль делить нельзя")
-         return nil
-     }
-     
-     return a / b
- }
-
-
- func calculate(operation: String) -> Int? {
-     switch operation {
-     case "/":
-         guard let result = divide() else {
-             print("Деление не удалось")
-             return nil
-         }
-         return result
-     default:
-         print("Не верная операция")
-         return nil
-     }
+     return persons
  }
 
  @main
  struct Application {
      static func main() throws {
-         let operation = getOperationFormUser()
-         guard let operation = operation else {
-             return
+         let persons = [
+             Person(name: "Иван", age: 27),
+             Person(name: "Александр", age: 40),
+             Person(name: "Евдоким", age: 78),
+         ]
+         let personsToOld = sort(persons: persons, operation: ToOldCompareOperation())
+         let personsToYong = sort(persons: persons, operation: ToYongCompareOperation())
+         let personsByName = sort(persons: persons, operation: ByNameCompareOperation())
+         
+         print(personsToOld)
+         print(personsToYong)
+         print(personsByName)
+     }
+ }
+ */
+
+/*
+ struct Person {
+     let name: String
+     let age: Int
+ }
+
+ enum SortType {
+     case ageToOld
+     case ageToYong
+ }
+
+ func sort(persons: [Person], type: SortType) -> [Person] {
+     var persons = persons
+     for i in 0..<persons.count - 1 {
+         for j in (i + 1)..<persons.count {
+             let isNeedSwapToOld = type == .ageToOld && persons[i].age > persons[j].age
+             let isNeedSwapToYong = type == .ageToYong && persons[i].age < persons[j].age
+             if isNeedSwapToOld || isNeedSwapToYong {
+                 let tmp = persons[i]
+                 persons[i] = persons[j]
+                 persons[j] = tmp
+             }
          }
-         let result = calculate(operation: operation)
-         guard let result = result else {
-             return
+     }
+     return persons
+ }
+
+ @main
+ struct Application {
+     static func main() throws {
+         let persons = [
+             Person(name: "Иван", age: 27),
+             Person(name: "Александр", age: 40),
+             Person(name: "Евдоким", age: 78),
+         ]
+         let personsToOld = sort(persons: persons, type: .ageToOld)
+         let personsToYong = sort(persons: persons, type: .ageToYong)
+         
+         print(personsToOld)
+         print(personsToYong)
+     }
+ }
+ */
+/*
+ struct Person {
+     let name: String
+     let age: Int
+ }
+ 
+ @main
+ struct Application {
+     static func main() throws {
+         var persons = [
+             Person(name: "Иван", age: 27),
+             Person(name: "Александр", age: 40),
+             Person(name: "Евдоким", age: 78),
+         ]
+         
+         for i in 0..<persons.count - 1 {
+             for j in (i + 1)..<persons.count {
+                 if persons[i].age > persons[j].age {
+                     let tmp = persons[i]
+                     persons[i] = persons[j]
+                     persons[j] = tmp
+                 }
+             }
          }
-        
+         print(persons)
+         
+         var personsFromOldToYong = persons
+         for i in 0..<personsFromOldToYong.count - 1 {
+             for j in (i + 1)..<personsFromOldToYong.count {
+                 if personsFromOldToYong[i].age < personsFromOldToYong[j].age {
+                     let tmp = personsFromOldToYong[i]
+                     personsFromOldToYong[i] = personsFromOldToYong[j]
+                     personsFromOldToYong[j] = tmp
+                 }
+             }
+         }
+         print(personsFromOldToYong)
+     }
+ }
+
  */
