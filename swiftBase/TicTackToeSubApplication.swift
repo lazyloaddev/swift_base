@@ -2,7 +2,7 @@ import Foundation
 
 private enum TicTackToeError: Error {
     case incorrectPlayerName(Int)
-    case emptyFiled
+    case emptyField
 }
 
 private enum TicTackToeFieldError: Error {
@@ -28,10 +28,10 @@ class TicTackToeSubApplication: SubApplication {
         } catch TicTackToeError.incorrectPlayerName(let player) {
             let player = player == 1 ? "первого" : "второго"
             print("Вы ввели неверное имя \(player) игрока")
-        } catch TicTackToeError.emptyFiled {
+        } catch TicTackToeError.emptyField {
             print("Вы ввели неверный размер игрового поля")
         } catch {
-            print("Неизвестная ошибка, потоврите операцию еще раз")
+            print("Неизвестная ошибка, повторите операцию еще раз")
         }
         return .resume
     }
@@ -48,6 +48,10 @@ class TicTackToeSubApplication: SubApplication {
         }
         let player2 = TicTackToePlayer(name: player2Name, symbol: .y)
         let fieldSize = UserDataProvider.int("Введите размер игрового поля")
+        
+        guard fieldSize > 0 else {
+            throw TicTackToeError.emptyField
+        }
         
         field = TicTackToeField(size: fieldSize)
         field.printToConsole()
