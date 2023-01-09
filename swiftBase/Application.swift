@@ -1,566 +1,236 @@
-func some(closure: (Int, Int) -> Int) {
-    let result = closure(2, 3)
-    print(result)
-}
-
 @main
 struct Application {
     static func main() throws {
-some { $0 + $1 }
+        let array = Array<Int>(lenght: 10)
+        let newArray = array.prefix { $0 % 2 != 0 }
+        print(array)
+        print(newArray)
     }
 }
-/*
- func some(closure: (Int, Int) -> Int) {
-     let result = closure(2, 3)
-     print(result)
- }
 
- @main
- struct Application {
-     static func main() throws {
-         let a: (Int, Int) -> Int = { $0 + $1 }
-         some(closure: a)
+extension Array where Element == Int {
+    
+    init(lenght: Int) {
+        self = Array(0..<lenght).map { _ in Int.random(in: 0...100) }
+    }
+    
+}
+/*
+ let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+ array
+     .prefix { $0 <= 8 }
+     .filter { $0 % 2 == 0 }
+     .map { $0 * $0 }
+     .forEach { print($0) }
+ */
+/*
+ let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+ array.forEach {
+     if $0 > 8 {
+         return
      }
- }
- */
-/*
- class A {
-     var closure: ((Int, Int) -> Int)?
-     
-     func some(closure: ((Int, Int) -> Int)?) {
-         self.closure = closure
+     if $0 % 2 != 0 {
+         return
      }
- }
- class A {
-     var closure: ((Int, Int) -> Int)?
-     
-     func some(closure: @escaping (Int, Int) -> Int) {
-         self.closure = closure
-     }
- }
- class A {
-     var closure: ((Int, Int) -> Int)?
-     
-     func some(closure: (Int, Int) -> Int) {
-         self.closure = closure
-     }
- }
- */
-
-/*
- class A {
-     var closure: ((Int, Int) -> Int)?
-     
-     func some(closure: (Int, Int) -> Int) {
-         closure(1, 2)
-     }
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let a = A()
-         a.some(closure: {  $0 + $1 })
-     }
- }
- */
-
-/*
- class A {
-     var closure: ((Int, Int) -> Int)?
-     
-     init(closure: ((Int, Int) -> Int)?) {
-         self.closure = closure
-     }
- }
- */
-
-/*
- class A {
-     var closure: (Int, Int) -> Int?
-     
-     init(closure: (Int, Int) -> Int?) {
-         self.closure = closure
-     }
+     let newElement = $0 * $0
+     print(newElement)
  }
  */
 /*
- class A {
-     var closure: (Int, Int) -> Int
-     
-     init(closure: (Int, Int) -> Int) {
-         self.closure = closure
-     }
- }
- */
-/*
- class A {
-     
-     var closure: (() -> Void)?
-     
-     deinit {
-         print("Уничтожен из памяти")
-     }
- }
-
- @main
- struct Application {
-     static func main() throws {
-         some()
-     }
- }
-
- func some() {
-     let a = A()
-     a.closure = { [weak a] in print(a) }
- }
- */
-
-/*
- class A {
-     
-     var closure: (() -> Void)?
-     
-     deinit {
-         print("Уничтожен из памяти")
-     }
- }
-
- @main
- struct Application {
-     static func main() throws {
-         some()
-     }
- }
-
- func some() {
-     let a = A()
-     a.closure = { print(a) }
- }
- */
-/*
- @main
- struct Application {
-     static func main() throws {
-         var c = 15
-         let closure: (Int, Int) -> Int = { [c] a, b in
-             a + b + c
-         }
-         c = 0
-         some(closure: closure)
-     }
- }
-
- func some(closure: (Int, Int) -> Int) {
-     let a = 2
-     let b = 3
-     print(closure(a, b))
- }
- */
-/*
- @main
- struct Application {
-     static func main() throws {
-         var c = 15
-         let closure: (Int, Int) -> Int = {
-             c = 100
-             return $0 + $1 + c
-         }
-         c = 0
-         some(closure: closure)
-         print(c)
-     }
- }
-
- func some(closure: (Int, Int) -> Int) {
-     let a = 2
-     let b = 3
-     print(closure(a, b))
- }
-
- */
-/*
- @main
- struct Application {
-     static func main() throws {
-         var c = 15
-         let closure: (Int, Int) -> Int = {
-             $0 + $1 + c
-         }
-         c = 0
-         some(closure: closure)
-     }
- }
-
- func some(closure: (Int, Int) -> Int) {
-     let a = 2
-     let b = 3
-     print(closure(a, b))
- }
- */
-/*
- @main
- struct Application {
-     static func main() throws {
-         let c = 15
-         let closure: (Int, Int) -> Int = {
-             $0 + $1 + c
-         }
-         some(closure: closure)
-     }
- }
-
- func some(closure: (Int, Int) -> Int) {
-     let a = 2
-     let b = 3
-     print(closure(a, b))
- }
- */
-
-/*
- struct Summ {
-     
-     func perform(_ a: Int, _ b: Int) -> Int {
-         a + b
-     }
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let closure = Summ()
-         some(closure: closure)
-     }
- }
-
- func some(closure: Summ) {
-     let a = 2
-     let b = 3
-     print(closure.perform(a, b))
- }
- */
-/*
- let closure = {
-     $0 + $1
- }
- let closure: (Int, Int) -> Int = {
-     return $0 + $1
- }
- let closure: (Int, Int) -> Int = { a, b in
-     return a + b
- }
- let closure: (Int, Int) -> Int = { (a, b) in
-     return a + b
- }
- let closure: (Int, Int) -> Int = { (a: Int, b: Int) in
-     return a + b
- }
- let closure = { (a: Int, b: Int) -> Int in
-     return a + b
- }
- */
-/*
- let closure = { print("hello") }
- let closure: () -> Void = { print("hello") }
- let closure = { () -> Void in print("hello") }
- */
-/*
- let closure: () -> Void = { () -> Void in print("hello") }
- */
-
-/*
- let closure: (Int, Int) -> Int = { (a: Int, b: Int) -> Int in
-     return a + b
- }
- */
-/*
- let closure: (Int, Int) -> Int = { (a: Int, b: Int) -> Int in return a + b }
- let result = closure(1, 3)
- print(result)
- */
-/*
- let closure: () -> Void = { print("hello") }
- */
-/*
- let a = Closure()
- a.perform()
- */
-
-/*
- func some(closure: Closure) {
-     
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let a = Closure()
-         some(closure: a)
-     }
- }
- */
-
-/*
- let a = Closure()
- let b = a
- */
-/*
- struct Closure {
-     func perform() {
-         print("hello")
-     }
- }
- */
-/*
- let a = { print("hello") }
- a()
- */
-/*
- func some(closure: () -> Void) {
-     
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let a = { print("hello") }
-         some(closure: a)
-     }
- }
- */
-/*
- let a = { print("hello") }
- let b = a
- */
-/*
- { print("hello") }
- */
-
-/*
- func some() {
-     print("hello")
- }
-
-
- @main
- struct Application {
-     static func main() throws {
-         some()
-     }
- }
- */
-
-/*
- struct Person {
-     let name: String
-     let age: Int
- }
-
-
- @main
- struct Application {
-     static func main() throws {
-         let persons = [
-             Person(name: "Иван", age: 27),
-             Person(name: "Александр", age: 40),
-             Person(name: "Евдоким", age: 78),
-         ]
-         let personsToOld = persons.sorted(by: { $0.age < $1.age })
-         let personsToYong = persons.sorted(by: { $0.age > $1.age })
-         let personsByName = persons.sorted(by: { $0.name < $1.name })
+ let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
          
-         print(personsToOld)
-         print(personsToYong)
-         print(personsByName)
+ for element in array {
+     if element > 8 {
+         break
      }
- }
- */
-
-/*
- struct Person {
-     let name: String
-     let age: Int
- }
-
-
- func sort(persons: [Person], compare: (Person, Person) -> Bool) -> [Person] {
-     var persons = persons
-     for i in 0..<persons.count - 1 {
-         for j in (i + 1)..<persons.count {
-             if compare(persons[i], persons[j]) {
-                 let tmp = persons[i]
-                 persons[i] = persons[j]
-                 persons[j] = tmp
-             }
-         }
+     if element % 2 != 0 {
+         continue
      }
-     return persons
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let persons = [
-             Person(name: "Иван", age: 27),
-             Person(name: "Александр", age: 40),
-             Person(name: "Евдоким", age: 78),
-         ]
-         let personsToOld = sort(persons: persons, compare: { $0.age > $1.age })
-         let personsToYong = sort(persons: persons, compare: { $0.age < $1.age })
-         let personsByName = sort(persons: persons, compare: { $0.name > $1.name })
-         
-         print(personsToOld)
-         print(personsToYong)
-         print(personsByName)
-     }
- }
-
- */
-
-/*
- struct Person {
-     let name: String
-     let age: Int
- }
-
- protocol CompareOperation {
-     
-     func compare(_ a: Person, _ b: Person) -> Bool
-     
- }
-
- class ToOldCompareOperation: CompareOperation {
-     func compare(_ a: Person, _ b: Person) -> Bool {
-         a.age > b.age
-     }
- }
-
- class ToYongCompareOperation: CompareOperation {
-     func compare(_ a: Person, _ b: Person) -> Bool {
-         a.age < b.age
-     }
- }
-
- class ByNameCompareOperation: CompareOperation {
-     func compare(_ a: Person, _ b: Person) -> Bool {
-         a.name > b.name
-     }
- }
-
- func sort(persons: [Person], operation: CompareOperation) -> [Person] {
-     var persons = persons
-     for i in 0..<persons.count - 1 {
-         for j in (i + 1)..<persons.count {
-             if operation.compare(persons[i], persons[j]) {
-                 let tmp = persons[i]
-                 persons[i] = persons[j]
-                 persons[j] = tmp
-             }
-         }
-     }
-     return persons
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let persons = [
-             Person(name: "Иван", age: 27),
-             Person(name: "Александр", age: 40),
-             Person(name: "Евдоким", age: 78),
-         ]
-         let personsToOld = sort(persons: persons, operation: ToOldCompareOperation())
-         let personsToYong = sort(persons: persons, operation: ToYongCompareOperation())
-         let personsByName = sort(persons: persons, operation: ByNameCompareOperation())
-         
-         print(personsToOld)
-         print(personsToYong)
-         print(personsByName)
-     }
- }
- */
-
-/*
- struct Person {
-     let name: String
-     let age: Int
- }
-
- enum SortType {
-     case ageToOld
-     case ageToYong
- }
-
- func sort(persons: [Person], type: SortType) -> [Person] {
-     var persons = persons
-     for i in 0..<persons.count - 1 {
-         for j in (i + 1)..<persons.count {
-             let isNeedSwapToOld = type == .ageToOld && persons[i].age > persons[j].age
-             let isNeedSwapToYong = type == .ageToYong && persons[i].age < persons[j].age
-             if isNeedSwapToOld || isNeedSwapToYong {
-                 let tmp = persons[i]
-                 persons[i] = persons[j]
-                 persons[j] = tmp
-             }
-         }
-     }
-     return persons
- }
-
- @main
- struct Application {
-     static func main() throws {
-         let persons = [
-             Person(name: "Иван", age: 27),
-             Person(name: "Александр", age: 40),
-             Person(name: "Евдоким", age: 78),
-         ]
-         let personsToOld = sort(persons: persons, type: .ageToOld)
-         let personsToYong = sort(persons: persons, type: .ageToYong)
-         
-         print(personsToOld)
-         print(personsToYong)
-     }
+     let newElement = element * element
+     print(newElement)
  }
  */
 /*
- struct Person {
-     let name: String
-     let age: Int
+ let array = [1, 2, 3, 4, 5]
+ let summ = array.reduce(0) { result, element in result + element }
+ print(summ)
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ var summ = 0
+ for element in array {
+     summ += element
  }
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ array.forEach {
+     if $0 > 5 {
+         return
+     }
+     print($0)
+ }
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ array.forEach { print($0) }
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ for element in array {
+     print(element)
+ }
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ let isAllEven = array.allSatisfy { $0 % 2 == 0 }
+ print(array)
+ print(isAllEven)
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ let hasEven = array.first { $0 % 2 == 0 } != nil
+ print(array)
+ print(hasEven)
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ let element = array.filter { $0 % 2 == 0 }.first
+ print(array)
+ print(element)
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ let index = array.firstIndex { $0 % 2 == 0 }
+ print(array)
+ print(index)
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ let element = array.first { $0 % 2 == 0 }
+ print(array)
+ print(element)
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ print(array)
+ let newArray = array.sorted { $0 < $1 }
+ print(newArray)
+ */
+/*
+ var array = Array<Int>(lenght: 10)
+ print(array)
+ array.sort { $0 > $1 }
+ print(array)
+ */
+/*
+ var array = Array<Int>(lenght: 10)
+ print(array)
+ array.sort { $0 < $1 }
+ print(array)
+ */
+/*
+ let arrayA = Array<Int>(lenght: 10)
+ let arrayB = Array<Int>(lenght: 10)
+ print(arrayA)
+ print(arrayB)
  
- @main
- struct Application {
-     static func main() throws {
-         var persons = [
-             Person(name: "Иван", age: 27),
-             Person(name: "Александр", age: 40),
-             Person(name: "Евдоким", age: 78),
-         ]
-         
-         for i in 0..<persons.count - 1 {
-             for j in (i + 1)..<persons.count {
-                 if persons[i].age > persons[j].age {
-                     let tmp = persons[i]
-                     persons[i] = persons[j]
-                     persons[j] = tmp
-                 }
-             }
-         }
-         print(persons)
-         
-         var personsFromOldToYong = persons
-         for i in 0..<personsFromOldToYong.count - 1 {
-             for j in (i + 1)..<personsFromOldToYong.count {
-                 if personsFromOldToYong[i].age < personsFromOldToYong[j].age {
-                     let tmp = personsFromOldToYong[i]
-                     personsFromOldToYong[i] = personsFromOldToYong[j]
-                     personsFromOldToYong[j] = tmp
-                 }
-             }
-         }
-         print(personsFromOldToYong)
+ let newA = (arrayA + arrayB).filter { $0 % 2 != 0 }
+ let newB = (arrayA + arrayB).filter { $0 % 2 == 0 }
+ print(newA)
+ print(newB)
+ */
+/*
+ let arrayA = Array<Int>(lenght: 10)
+ let arrayB = Array<Int>(lenght: 10)
+ print(arrayA)
+ print(arrayB)
+
+ let newA = arrayA.filter { $0 % 2 != 0 } + arrayB.filter { $0 % 2 != 0 }
+ let newB = arrayA.filter { $0 % 2 == 0 } + arrayB.filter { $0 % 2 == 0 }
+ print(newA)
+ print(newB)
+ */
+/*
+ var array = Array<Int>(lenght: 10)
+ print(array)
+ array = array.filter { $0 % 2 != 0 }
+ print(array)
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ var minElement = array.min()
+ print(array)
+ print(minElement)
+ */
+/*
+ let array = Array<Int>(lenght: 10)
+ var maxElement = array.max()
+ print(array)
+ print(maxElement)
+ */
+/*
+ let array = ["привет", "мир"]
+ let newArray = array.flatMap { Array($0) }
+ print(newArray)
+ */
+/*
+ let array = ["привет", "мир"]
+ let newArray = array.map { Array($0) }
+ print(newArray)
+ /* В консоле мы увидим
+ [["п", "р", "и", "в", "е", "т"], ["м", "и", "р"]]
+ */
+ */
+/*
+ let array = ["1", "2", "q", "w", "3", "x"]
+ let newArray = array.compactMap { Int($0) }
+ print(newArray)
+ */
+/*
+ let array = ["1", "2", "q", "w", "3", "x"]
+ let newArray = array.map { Int($0) }
+ print(newArray)
+ */
+
+/*
+ extension Array where Element == Int {
+     
+     init(lenght: Int) {
+         self = Array(0..<lenght).map { _ in Int.random(in: 0...100) }
      }
+     
+ }
+ */
+/*
+ func makeArray() -> [Int] {
+     Array(0..<10).map { _ in Int.random(in: 0...100) }
  }
 
+ */
+
+/*
+ func makeArray() -> [Int] {
+     var array = [Int]()
+     for _ in 0..<10 {
+         let randomNumber = Int.random(in: 0...100)
+         array.append(randomNumber)
+     }
+     return array
+ }
+
+ */
+/*
+ let array = makeArray().map { String(describing: $0) }
+ print(array)
+ */
+/*
+ let array = makeArray().map { $0 * $0 }
+ print(array)
+ */
+/*
+ let array = makeArray()
+ print(array)
+ let newArray = array.map { $0 * $0 }
+ print(newArray)
  */
