@@ -236,7 +236,7 @@ private struct TicTackToeField {
         for i in 0..<fieldSize {
             let firstSymbol = field[0][i]
             if firstSymbol == .empty {
-                break
+                continue
             }
             var isWin = true
             for j in 0..<fieldSize{
@@ -258,7 +258,7 @@ private struct TicTackToeField {
         for i in 0..<fieldSize {
             let firstSymbol = field[i][0]
             if firstSymbol == .empty {
-                break
+                continue
             }
             var isWin = true
             for j in 0..<fieldSize{
