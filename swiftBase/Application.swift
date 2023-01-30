@@ -1,107 +1,99 @@
-struct Person {
-    let name: String
-    let age: Int
+protocol IntContainer: Equatable {
+    var value: Int { get }
 }
 
-extension Array {
-    
-    func sortExample(compare: (Element, Element) -> Bool) -> [Element] {
-        var array = self
-        for i in 0..<array.count - 1 {
-            for j in (i + 1)..<array.count {
-                if compare(array[i], array[j]) {
-                    let tmp = array[i]
-                    array[i] = array[j]
-                    array[j] = tmp
-                }
-            }
-        }
-        return array
-    }
-    
+struct IntContainerOne: IntContainer {
+    let value: Int
 }
+
+extension IntContainerOne: Equatable {
+    static func == (lhs: IntContainerOne, rhs: IntContainerOne) -> Bool {
+        lhs.value == rhs.value
+    }
+}
+
+struct IntContainerTwo: IntContainer {
+    let value: Int
+}
+
+extension IntContainerTwo: Equatable {
+    static func == (lhs: IntContainerTwo, rhs: IntContainerTwo) -> Bool {
+        lhs.value == rhs.value
+    }
+}
+
+
+func makeContainerFourth(value: Int) -> some IntContainer {
+    IntContainerOne(value: value)
+}
+
 
 @main
 struct Application {
     static func main() throws {
-        let persons = [
-            Person(name: "Иван", age: 27),
-            Person(name: "Александр", age: 40),
-            Person(name: "Евдоким", age: 78),
-        ]
-        let sortedArray = persons.sortExample { $0.age > $1.age }
-        print(sortedArray)
+        let a = makeContainerFourth(value: 1)
+        let b = makeContainerFourth(value: 1)
+        print(a == b)
     }
 }
 
-/*
- extension Array {
-     
-     func sortExample(compare: (Element, Element) -> Bool) -> [Element] {
-         var array = self
-         for i in 0..<array.count - 1 {
-             for j in (i + 1)..<array.count {
-                 if compare(array[i], array[j]) {
-                     let tmp = array[i]
-                     array[i] = array[j]
-                     array[j] = tmp
-                 }
-             }
-         }
-         return array
-     }
-     
- }
- */
-/*
- let array = ["1", "6", "3", "7", "2", "0", "9"]
- let sortedArray = sort(persons: array, compare: { $0 > $1 })
- */
-/*
- let array = [1, 6, 3, 7, 2, 0, 9]
- let sortedArray = sort(persons: array, compare: { $0 > $1 })
- */
-/*
- let persons = [
-     Person(name: "Иван", age: 27),
-     Person(name: "Александр", age: 40),
-     Person(name: "Евдоким", age: 78),
- ]
- let personsToOld = sort(persons: persons, compare: { $0.age > $1.age })
- */
 
 /*
- func sort<T>(persons: [T], compare: (T, T) -> Bool) -> [T] {
-     var persons = persons
-     for i in 0..<persons.count - 1 {
-         for j in (i + 1)..<persons.count {
-             if compare(persons[i], persons[j]) {
-                 let tmp = persons[i]
-                 persons[i] = persons[j]
-                 persons[j] = tmp
-             }
-         }
-     }
-     return persons
+ let a: IntContainerOne = makeContainerOne()
+ let b: IntContainer = makeContainerTwo()
+ let c: IntContainer = makeContainerFourth()
+ 
+ let a = makeContainerOne()
+ let b = makeContainerTwo()
+ let c = makeContainerFourth()
+
+ print(a, b, c, c)
+ 
+ func makeContainerFourth() -> some IntContainer {
+     IntContainerOne(value: 2)
  }
- */
-/*
- struct Person {
-     let name: String
-     let age: Int
+ 
+ func makeContainerTwo(value: Int) -> any IntContainer {
+     if value % 2 == 0 {
+         return IntContainerOne(value: value)
+     } else {
+         return IntContainerTwo(value: value)
+     }
+ }
+ 
+ protocol IntContainer {
+     var value: Int { get }
  }
 
- func sort(persons: [Person], compare: (Person, Person) -> Bool) -> [Person] {
-     var persons = persons
-     for i in 0..<persons.count - 1 {
-         for j in (i + 1)..<persons.count {
-             if compare(persons[i], persons[j]) {
-                 let tmp = persons[i]
-                 persons[i] = persons[j]
-                 persons[j] = tmp
-             }
-         }
+ struct IntContainerOne: IntContainer {
+     let value: Int
+ }
+
+ struct IntContainerTwo: IntContainer {
+     let value: Int
+ }
+
+ func makeContainerTwo(value: Int) -> IntContainer {
+     if value % 2 == 0 {
+         return IntContainerOne(value: value)
+     } else {
+         return IntContainerTwo(value: value)
      }
-     return persons
+ }
+ 
+ func makeContainerTwo() -> IntContainer {
+     IntContainerOne(value: 2)
+ }
+ 
+ func makeContainerOne() -> IntContainerOne {
+     IntContainerOne(value: 2)
+ }
+ 
+ protocol IntContainer {
+     var value: Int { get }
+ }
+
+ struct IntContainerOne: IntContainer {
+     let value: Int
  }
  */
